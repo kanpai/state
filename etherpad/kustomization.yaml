@@ -1,0 +1,6 @@
+namespace: etherpad
+resources:
+- namespace.yaml
+- config.yaml
+- web.yaml
+- database.yaml

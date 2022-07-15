@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: etherpad
+spec:
+  ports:
+  - port: 9001
+    name: http
+  selector:
+    app: etherpad
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: etherpad
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: etherpad
+  template:
+    metadata:
+      labels:
+        app: etherpad
+    spec:
+      containers:
+      - name: etherpad
+        image: docker.io/etherpad/etherpad:1.8.18
+        ports:
+        - containerPort: 9001
+          name: http
+        envFrom:
+        - configMapRef:
+            name: etherpad-config
+        env:
+        - name: DB_TYPE
+          value: "postgres"
+        - name: DB_HOST
+          value: "database"
+        - name: DB_NAME
+          value: "etherpad"
+        - name: DB_USER
+          value: "etherpad"
+        - name: DB_PASS
+          value: "etherpad" # use sealed secret
