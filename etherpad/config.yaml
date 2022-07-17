@@ -7,9 +7,10 @@ data:
   PORT: "9001"
   TITLE: "パッド"
   FAVICON: "favicon.ico"
-# DEFAULT_PAD_TEXT: >
-#   Welcome to カンパイのパッド！
-#   This pad text is synchronized as you type, so that everyone viewing this page sees the same text.
+  DEFAULT_PAD_TEXT: >
+    Welcome to カンパイのパッド！
+
+    This pad text is synchronized as you type, so that everyone viewing this page sees the same text.
 
   # Pad options
   PAD_OPTIONS_NO_COLORS: "true"
@@ -19,12 +20,12 @@ data:
   PAD_OPTIONS_USE_MONOSPACE_FONT: "true"
 # PAD_OPTIONS_USER_NAME: "null"
 # PAD_OPTIONS_USER_COLOR: "null"
-# PAD_OPTIONS_RTL: "true"
+  PAD_OPTIONS_RTL: "false"
   PAD_OPTIONS_ALWAYS_SHOW_CHAT: "false"
   PAD_OPTIONS_CHAT_AND_USERS: "false"
 # PAD_OPTIONS_LANG: "null"
 
-# # Shortcuts
+  # Shortcuts
 # PAD_SHORTCUTS_ALT_F9: "true"
 # PAD_SHORTCUTS_ALT_C: "true"
 # PAD_SHORTCUTS_CMD_S: "true"
