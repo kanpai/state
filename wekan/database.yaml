@@ -35,7 +35,7 @@ spec:
             claimName: mongo-dump
       containers:
         - name: mongodb
-          image: docker.io/postgres:14.4-alpine
+          image: docker.io/mongo:4.4
           ports:
             - containerPort: 27017
               name: mongo
