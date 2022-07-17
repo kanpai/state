@@ -6,8 +6,8 @@ metadata:
     app: postgres
 spec:
   ports:
-  - port: 5432
-    name: database
+    - port: 5432
+      name: database
   selector:
     app: postgres
 ---
@@ -27,25 +27,31 @@ spec:
         app: postgres
     spec:
       volumes:
-      - name: postgres-data
-        persistentVolumeClaim:
-          claimName: database
-      containers:
-      - name: postgres
-        image: docker.io/postgres:14.4-alpine
-        ports:
-        - containerPort: 5432
-          name: postgres
-        volumeMounts:
         - name: postgres-data
-          mountPath: /var/lib/postgresql
-        env:
-        - name: POSTGRES_DB
-          value: "etherpad"
-        - name: POSTGRES_USER
-          value: "etherpad"
-        - name: POSTGRES_PASSWORD
-          value: "etherpad" # use sealed secret
+          persistentVolumeClaim:
+            claimName: database
+      containers:
+        - name: postgres
+          image: docker.io/postgres:14.4-alpine
+          ports:
+            - containerPort: 5432
+              name: postgres
+          volumeMounts:
+            - name: postgres-data
+              mountPath: /var/lib/postgresql
+          env:
+            - name: POSTGRES_DB
+              value: "etherpad"
+            - name: POSTGRES_USER
+              value: "etherpad"
+            - name: POSTGRES_PASSWORD
+              value: "etherpad" # use sealed secret
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - postgres
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -54,7 +60,7 @@ metadata:
 spec:
   storageClassName: scw-bssd
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
