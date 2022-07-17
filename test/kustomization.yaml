@@ -5,4 +5,4 @@ resources:
 configMapGenerator:
   - name: test-config
     envs:
-      - config.yaml
+      - config.env
