@@ -1,4 +1,9 @@
 resources:
-- config.yaml
-- web.yaml
-- database.yaml
+  - config.yaml
+  - networking.yaml
+  - web.yaml
+  - database.yaml
+configMapGenerator:
+  - name: etherpad-config
+    files:
+      - config.yaml

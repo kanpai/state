@@ -1,0 +1,57 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: pad-kanpai
+spec:
+  issuerRef:
+    kind: ClusterIssuer
+    name: scaleway-letsencrypt
+  secretName: pad-kanpai-tls
+  commonName: pad.kanp.ai
+  dnsNames:
+  - pad.kanp.ai
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: etherpad-https
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: pad-kanpai-tls
+  routes:
+    - match: Host(`pad.kanp.ai`)
+      kind: Rule
+      services:
+        - name: etherpad
+          scheme: http
+          port: 9001
+---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   name: etherpad-http
+# spec:
+#   entryPoints:
+#     - web
+#   routes:
+#     - match: Host(`pad.kanp.ai`)
+#       kind: Rule
+#       services:
+#         - name: etherpad
+#           scheme: http
+#           port: 9001
+#       middlewares:
+#         - name: https-redirect
+# ---
+# ---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: Middleware
+# metadata:
+#   name: https-redirect
+# # namespace: traefik-v2
+# spec:
+#   redirectScheme:
+#     scheme: https
+#     permanent: true
