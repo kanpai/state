@@ -9,7 +9,7 @@ spec:
   secretName: pad-kanpai-tls
   commonName: pad.kanp.ai
   dnsNames:
-  - pad.kanp.ai
+    - pad.kanp.ai
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
