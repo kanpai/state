@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wekan-database
+  labels:
+    app: wekan-database
+spec:
+  ports:
+    - port: 27017
+      name: mongo
+  selector:
+    app: wekan-database
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: wekan-database
+spec:
+  selector:
+    matchLabels:
+      app: wekan-database
+  serviceName: "wekan-database"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: wekan-database
+    spec:
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: mongo-data
+        - name: dump
+          persistentVolumeClaim:
+            claimName: mongo-dump
+      containers:
+        - name: mongodb
+          image: docker.io/postgres:14.4-alpine
+          ports:
+            - containerPort: 27017
+              name: mongo
+          volumeMounts:
+            - name: data
+              mountPath: /data/db
+            - name: dump
+              mountPath: /dump
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongo-data
+spec:
+  storageClassName: scw-bssd
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongo-dump
+spec:
+  storageClassName: scw-bssd
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
