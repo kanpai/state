@@ -5,12 +5,11 @@ metadata:
 data:
   IP: "0.0.0.0"
   PORT: "9001"
-  TITLE: "Etherpad"
+  TITLE: "パッド"
   FAVICON: "favicon.ico"
   DEFAULT_PAD_TEXT: >
-    Welcome to Etherpad!
+    Welcome to カンパイのパッド！
     This pad text is synchronized as you type, so that everyone viewing this page sees the same text.
-    This allows you to collaborate seamlessly on documents! Get involved with Etherpad at https://etherpad.org
 
   # Pad options
   PAD_OPTIONS_NO_COLORS: "false"
@@ -20,7 +19,7 @@ data:
   PAD_OPTIONS_USE_MONOSPACE_FONT: "false"
   PAD_OPTIONS_USER_NAME: "null"
   PAD_OPTIONS_USER_COLOR: "null"
-  PAD_OPTIONS_RTL: "false"
+  PAD_OPTIONS_RTL: "true"
   PAD_OPTIONS_ALWAYS_SHOW_CHAT: "false"
   PAD_OPTIONS_CHAT_AND_USERS: "false"
   PAD_OPTIONS_LANG: "null"
