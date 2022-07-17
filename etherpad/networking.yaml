@@ -27,32 +27,31 @@ spec:
         - name: etherpad
           scheme: http
           port: 9001
-        - name: etherpad
-          scheme: ws
-          port: 9001
 ---
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  name: etherpad-http
-spec:
-  entryPoints:
-    - web
-  routes:
-    - match: Host(`pad.kanp.ai`)
-      kind: Rule
-      services:
-        - name: etherpad
-          scheme: http
-          port: 9001
-      middlewares:
-        - name: https-redirect
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: https-redirect
-spec:
-  redirectScheme:
-    scheme: https
-    permanent: true
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   name: etherpad-http
+# spec:
+#   entryPoints:
+#     - web
+#   routes:
+#     - match: Host(`pad.kanp.ai`)
+#       kind: Rule
+#       services:
+#         - name: etherpad
+#           scheme: http
+#           port: 9001
+#       middlewares:
+#         - name: https-redirect
+# ---
+# ---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: Middleware
+# metadata:
+#   name: https-redirect
+# # namespace: traefik-v2
+# spec:
+#   redirectScheme:
+#     scheme: https
+#     permanent: true
