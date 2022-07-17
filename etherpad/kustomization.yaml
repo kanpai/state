@@ -5,6 +5,6 @@ resources:
   - database.yaml
 configMapGenerator:
   - name: etherpad-config
-    behavior: replace
+    behavior: merge
     files:
       - config.yaml
