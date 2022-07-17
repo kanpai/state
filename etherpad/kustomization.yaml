@@ -1,10 +1,8 @@
 resources:
-  - config.yaml
   - networking.yaml
   - web.yaml
   - database.yaml
 configMapGenerator:
   - name: etherpad-config
-    behavior: merge
-    files:
-      - config.yaml
+    envs:
+      - config.env
