@@ -4,5 +4,5 @@ resources:
   - deploy.yaml
 configMapGenerator:
   - name: test-config
-    files:
+    envs:
       - config.env
