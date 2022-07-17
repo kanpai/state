@@ -8,3 +8,6 @@ configMapGenerator:
     behavior: merge
     files:
       - config.yaml
+  - name: test-config
+    files:
+      - test.env
