@@ -1,7 +1,7 @@
 resources:
   - networking.yaml
   - service.yaml
-  - pod.yaml
+  - deploy.yaml
 configMapGenerator:
   - name: test-config
     files:
