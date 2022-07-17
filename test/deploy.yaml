@@ -24,5 +24,3 @@ spec:
         env:
         - name: WHOAMI_PORT_NUMBER
           value: "80"
-        - name: WHOAMI_NAME
-          value: "kanpai"
