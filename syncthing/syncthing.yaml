@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: syncthing
+  labels:
+    app: syncthing
+spec:
+  ports:
+    - port: 8384
+      name: web
+    - port: 22000
+      name: transfer
+    - port: 21027
+      name: discovery
+  selector:
+    app: postgres
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: syncthing
+spec:
+  selector:
+    matchLabels:
+      app: syncthing
+  serviceName: "syncthing"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: syncthing
+    spec:
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: database
+      containers:
+        - name: syncthing
+          image: docker.io/syncthing/syncthing:latest
+          ports:
+            - name: web
+              containerPort: 8384
+            - name: transfer
+              containerPort: 22000
+            - name: discovery
+              containerPort: 21027
+          volumeMounts:
+            - name: data
+              mountPath: /var/syncthing
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: syncthing-data
+spec:
+  storageClassName: scw-bssd
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
