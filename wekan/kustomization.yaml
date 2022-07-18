@@ -1,7 +1,8 @@
 resources:
   - networking.yaml
-  - wekan.yaml
   - database.yaml
+  - wekan.yaml
+  - wekan-discord.yaml
 configMapGenerator:
   - name: wekan-config
     envs:

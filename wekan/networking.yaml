@@ -28,6 +28,36 @@ spec:
           scheme: http
           port: 8080
 ---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wekan-discord-mib-dev
+spec:
+  issuerRef:
+    kind: ClusterIssuer
+    name: scaleway-letsencrypt
+  secretName: wekan-discord-mib-dev-tls
+  commonName: wekan-discord.mib.dev
+  dnsNames:
+  - wekan-discord.mib.dev
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: wekan-discord-https
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: wekan-discord-mib-dev-tls
+  routes:
+    - match: Host(`wekan-discord.mib.dev`)
+      kind: Rule
+      services:
+        - name: wekan-discord
+          scheme: http
+          port: 8080
+---
 # apiVersion: traefik.containo.us/v1alpha1
 # kind: IngressRoute
 # metadata:
