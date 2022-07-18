@@ -13,7 +13,7 @@ spec:
     - port: 21027
       name: discovery
   selector:
-    app: postgres
+    app: syncthing
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -33,7 +33,7 @@ spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: database
+            claimName: syncthing-data
       containers:
         - name: syncthing
           image: docker.io/syncthing/syncthing:latest
