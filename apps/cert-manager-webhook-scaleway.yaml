@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager-webhook-scaleway
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/scaleway/cert-manager-webhook-scaleway.git'
+    path: deploy/scaleway-webhook
+    targetRevision: HEAD
+  destination:
+    name: in-cluster
+    namespace: cert-manager
+  ignoreDifferences:
+    - group: '*'
+      kind: Certificate
+      jsonPointers:
+        - /spec/duration
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=false
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
