@@ -30,9 +30,6 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: mongo-data
-        - name: dump
-          persistentVolumeClaim:
-            claimName: mongo-dump
       containers:
         - name: mongodb
           image: docker.io/mongo:4.4
@@ -42,25 +39,11 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /data/db
-            - name: dump
-              mountPath: /dump
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mongo-data
-spec:
-  storageClassName: scw-bssd
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mongo-dump
 spec:
   storageClassName: scw-bssd
   accessModes:
