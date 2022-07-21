@@ -1,3 +1,4 @@
 resources:
   - networking.yaml
   - syncthing.yaml
+  - storage.yaml
