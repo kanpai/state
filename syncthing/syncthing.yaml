@@ -30,6 +30,8 @@ spec:
       labels:
         app: syncthing
     spec:
+      securityContext:
+        fsGroup: 1000
       volumes:
         - name: base
           persistentVolumeClaim:
