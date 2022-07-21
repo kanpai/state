@@ -31,6 +31,9 @@ spec:
         app: syncthing
     spec:
       volumes:
+        - name: base
+          persistentVolumeClaim:
+            claimName: syncthing-base
         - name: data
           persistentVolumeClaim:
             claimName: syncthing-data
@@ -48,7 +51,21 @@ spec:
             - name: discovery
               containerPort: 21027
           volumeMounts:
-            - name: data
+            - name: base
               mountPath: /var/syncthing
+            - name: data
+              mountPath: /var/syncthing/data
             - name: torrent-files
               mountPath: /var/syncthing/data/torrent-files
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: syncthing-base
+spec:
+  storageClassName: scw-bssd-retain
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
