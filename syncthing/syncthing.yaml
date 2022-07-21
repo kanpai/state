@@ -51,4 +51,4 @@ spec:
             - name: data
               mountPath: /var/syncthing
             - name: torrent-files
-              mountPath: /var/syncthing/torrent-files
+              mountPath: /var/syncthing/data/torrent-files
