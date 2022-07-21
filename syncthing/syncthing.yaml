@@ -34,6 +34,9 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: syncthing-data
+        - name: torrent-files
+          persistentVolumeClaim:
+            claimName: sync-torrent-files
       containers:
         - name: syncthing
           image: docker.io/syncthing/syncthing:latest
@@ -47,15 +50,5 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /var/syncthing
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: syncthing-data
-spec:
-  storageClassName: scw-bssd
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 80Gi
+            - name: torrent-files
+              mountPath: /var/syncthing/torrent-files
