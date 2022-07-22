@@ -5,9 +5,9 @@ metadata:
 spec:
   ports:
     - port: 7774
-      name: internal
+      name: media-api-internal
     - port: 8074
-      name: external
+      name: media-api
   selector:
     app: media-api
 ---

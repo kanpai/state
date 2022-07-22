@@ -5,7 +5,7 @@ metadata:
 spec:
   ports:
     - port: 7770
-      name: internal
+      name: roomserver-internal
   selector:
     app: roomserver
 ---

@@ -5,7 +5,7 @@ metadata:
 spec:
   ports:
     - port: 7779
-      name: internal
+      name: keyserver-api-internal
   selector:
     app: keyserver
 ---

@@ -5,7 +5,7 @@ metadata:
 spec:
   ports:
     - port: 7777
-      name: internal
+      name: appservice-api
   selector:
     app: appservice-api
 ---

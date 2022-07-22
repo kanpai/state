@@ -5,9 +5,9 @@ metadata:
 spec:
   ports:
     - port: 7773
-      name: internal
+      name: sync-api-internal
     - port: 8073
-      name: external
+      name: sync-api
   selector:
     app: sync-api
 ---

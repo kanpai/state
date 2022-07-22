@@ -5,9 +5,9 @@ metadata:
 spec:
   ports:
     - port: 7772
-      name: internal
+      name: federation-api-internal
     - port: 8072
-      name: external
+      name: federation-api
   selector:
     app: federation-api
 ---
