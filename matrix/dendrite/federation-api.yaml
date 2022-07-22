@@ -4,8 +4,10 @@ metadata:
   name: federation-api
 spec:
   ports:
-    - port: 7771
-      name: api
+    - port: 7772
+      name: internal
+    - port: 8072
+      name: external
   selector:
     app: federation-api
 ---

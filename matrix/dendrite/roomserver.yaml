@@ -4,8 +4,8 @@ metadata:
   name: roomserver
 spec:
   ports:
-    - port: 7771
-      name: api
+    - port: 7770
+      name: internal
   selector:
     app: roomserver
 ---

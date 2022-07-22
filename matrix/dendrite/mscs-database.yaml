@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mscs-database
+  labels:
+    app: mscs-database
+spec:
+  ports:
+    - port: 5432
+      name: database
+  selector:
+    app: mscs-database
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mscs-database
+spec:
+  selector:
+    matchLabels:
+      app: mscs-database
+  serviceName: "mscs-database"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mscs-database
+    spec:
+      volumes:
+        - name: database
+          persistentVolumeClaim:
+            claimName: mscs-database
+      containers:
+        - name: postgres
+          image: docker.io/postgres:14.4-alpine
+          ports:
+            - containerPort: 5432
+              name: postgres
+          volumeMounts:
+            - name: database
+              mountPath: /var/lib/postgresql
+          env:
+            - name: POSTGRES_DB
+              value: "mscs"
+            - name: POSTGRES_USER
+              value: "mscs"
+            - name: POSTGRES_PASSWORD
+              value: "mscs" # use sealed secret
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - mscs
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mscs-database
+spec:
+  storageClassName: scw-bssd-retain
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

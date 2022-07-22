@@ -5,7 +5,9 @@ metadata:
 spec:
   ports:
     - port: 7771
-      name: api
+      name: internal
+    - port: 8071
+      name: external
   selector:
     app: client-api
 ---

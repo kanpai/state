@@ -4,8 +4,8 @@ metadata:
   name: user-api
 spec:
   ports:
-    - port: 7771
-      name: api
+    - port: 7781
+      name: internal
   selector:
     app: user-api
 ---
