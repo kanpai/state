@@ -116,7 +116,7 @@ global:
 app_service_api:
   internal_api:
     listen: http://[::]:7777 # The listen address for incoming API requests
-    connect: http://app_service_api:7777 # The connect address for other components to use
+    connect: http://appservice-api:7777 # The connect address for other components to use
 
   # Database configuration for this component.
   database:
@@ -144,7 +144,7 @@ client_api:
 
   # Prevents new users from being able to register on this homeserver, except when
   # using the registration shared secret below.
-  registration_disabled: true
+  registration_disabled: false
 
   # Prevents new guest accounts from being created. Guest registration is also
   # disabled implicitly by setting 'registration_disabled' above.
@@ -157,7 +157,7 @@ client_api:
   # Whether to require reCAPTCHA for registration. If you have enabled registration
   # then this is HIGHLY RECOMMENDED to reduce the risk of your homeserver being used
   # for coordinated spam attacks.
-  enable_registration_captcha: false
+  enable_registration_captcha: true
 
   # Settings for ReCAPTCHA.
   recaptcha_public_key: ""
@@ -362,7 +362,3 @@ tracing:
 logging:
   - type: std
     level: info
-  - type: file
-    level: info
-    params:
-      path: ./logs
