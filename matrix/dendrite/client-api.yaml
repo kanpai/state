@@ -41,7 +41,7 @@ spec:
           args: ["clientapi"]
           volumeMounts:
             - name: config
-              subPath: dendrite-config.yaml
+              subPath: config.yaml
               mountPath: /etc/dendrite/dendrite.yaml
               readOnly: true
             - name: certificate
