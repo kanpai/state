@@ -38,9 +38,9 @@ spec:
           volumeMounts:
             - name: well-known
               subPath: well-known_server.json
-              mountPath: /data/server
+              mountPath: /data/.well-known/matrix/server
               readOnly: true
             - name: well-known
               subPath: well-known_client.json
-              mountPath: /data/client
+              mountPath: /data/.well-known/matrix/client
               readOnly: true

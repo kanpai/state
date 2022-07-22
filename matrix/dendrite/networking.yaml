@@ -22,7 +22,7 @@ spec:
   tls:
     secretName: matrix-api-tls
   routes:
-    - match: Host(`shuu.ru`) && PathPrefix(`/.well-known/matrix`))
+    - match: Host(`shuu.ru`) && PathPrefix(`/.well-known/matrix/`)
       kind: Rule
       services:
         - name: well-known
