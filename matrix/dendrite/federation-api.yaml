@@ -1,0 +1,126 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: federation-api
+spec:
+  ports:
+    - port: 7771
+      name: api
+  selector:
+    app: federation-api
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: federation-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: federation-api
+  template:
+    metadata:
+      labels:
+        app: federation-api
+    spec:
+      volumes:
+        - name: config
+          configMap:
+            name: dendrite-config
+        - name: certificate
+          secret:
+            secretName: matrix-tls
+            optional: false
+        - name: matrix-key
+          secret:
+            secretName: matrix-key
+            optional: false
+      containers:
+        - name: federation-api
+          image: docker.io/matrixdotorg/dendrite-polylith:latest
+          args: ["federationapi"]
+          volumeMounts:
+            - name: config
+              subPath: config.yaml
+              mountPath: /etc/dendrite/dendrite.yaml
+              readOnly: true
+            - name: certificate
+              subPath: tls.crt
+              mountPath: /etc/dendrite/server.crt
+              readOnly: true
+            - name: certificate
+              subPath: tls.key
+              mountPath: /etc/dendrite/server.key
+              readOnly: true
+            - name: matrix-key
+              subPath: private.key
+              mountPath: /etc/dendrite/matrix_key.pem
+              readOnly: true
+          # tcp liveness probe on api port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: federation-api-database
+  labels:
+    app: federation-api-database
+spec:
+  ports:
+    - port: 5432
+      name: database
+  selector:
+    app: federation-api-database
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: federation-api-database
+spec:
+  selector:
+    matchLabels:
+      app: federation-api-database
+  serviceName: "federation-api-database"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: federation-api-database
+    spec:
+      volumes:
+        - name: database
+          persistentVolumeClaim:
+            claimName: federation-api-database
+      containers:
+        - name: postgres
+          image: docker.io/postgres:14.4-alpine
+          ports:
+            - containerPort: 5432
+              name: postgres
+          volumeMounts:
+            - name: database
+              mountPath: /var/lib/postgresql
+          env:
+            - name: POSTGRES_DB
+              value: "federationapi"
+            - name: POSTGRES_USER
+              value: "federation-api"
+            - name: POSTGRES_PASSWORD
+              value: "federation-api" # use sealed secret
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - federation-api
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: federation-api-database
+spec:
+  storageClassName: scw-bssd-retain
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

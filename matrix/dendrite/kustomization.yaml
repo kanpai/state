@@ -1,7 +1,14 @@
 resources:
   - server-certificate.yaml
   - matrix-private-key.yaml
+  - appservice-api.yaml
   - client-api.yaml
+  - federation-api.yaml
+  - keyserver.yaml
+  - media-api.yaml
+  - roomserver.yaml
+  - sync-api.yaml
+  - user-api.yaml
 configMapGenerator:
   - name: dendrite-config
     files:

@@ -1,0 +1,126 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: roomserver
+spec:
+  ports:
+    - port: 7771
+      name: api
+  selector:
+    app: roomserver
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: roomserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: roomserver
+  template:
+    metadata:
+      labels:
+        app: roomserver
+    spec:
+      volumes:
+        - name: config
+          configMap:
+            name: dendrite-config
+        - name: certificate
+          secret:
+            secretName: matrix-tls
+            optional: false
+        - name: matrix-key
+          secret:
+            secretName: matrix-key
+            optional: false
+      containers:
+        - name: roomserver
+          image: docker.io/matrixdotorg/dendrite-polylith:latest
+          args: ["roomserver"]
+          volumeMounts:
+            - name: config
+              subPath: config.yaml
+              mountPath: /etc/dendrite/dendrite.yaml
+              readOnly: true
+            - name: certificate
+              subPath: tls.crt
+              mountPath: /etc/dendrite/server.crt
+              readOnly: true
+            - name: certificate
+              subPath: tls.key
+              mountPath: /etc/dendrite/server.key
+              readOnly: true
+            - name: matrix-key
+              subPath: private.key
+              mountPath: /etc/dendrite/matrix_key.pem
+              readOnly: true
+          # tcp liveness probe on api port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: roomserver-database
+  labels:
+    app: roomserver-database
+spec:
+  ports:
+    - port: 5432
+      name: database
+  selector:
+    app: roomserver-database
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: roomserver-database
+spec:
+  selector:
+    matchLabels:
+      app: roomserver-database
+  serviceName: "roomserver-database"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: roomserver-database
+    spec:
+      volumes:
+        - name: database
+          persistentVolumeClaim:
+            claimName: roomserver-database
+      containers:
+        - name: postgres
+          image: docker.io/postgres:14.4-alpine
+          ports:
+            - containerPort: 5432
+              name: postgres
+          volumeMounts:
+            - name: database
+              mountPath: /var/lib/postgresql
+          env:
+            - name: POSTGRES_DB
+              value: "roomserver"
+            - name: POSTGRES_USER
+              value: "roomserver"
+            - name: POSTGRES_PASSWORD
+              value: "roomserver" # use sealed secret
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - roomserver
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: roomserver-database
+spec:
+  storageClassName: scw-bssd-retain
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
