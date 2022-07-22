@@ -1,6 +1,7 @@
 resources:
   - server-certificate.yaml
   - matrix-private-key.yaml
+  - networking.yaml
   - well-known.yaml
 
   # Polylith components

@@ -1,0 +1,55 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: matrix-certificate
+spec:
+  issuerRef:
+    kind: ClusterIssuer
+    name: scaleway-letsencrypt
+  secretName: matrix-api-tls
+  commonName: matrix.shuu.ru
+  dnsNames:
+    - shuu.ru
+    - matrix.shuu.ru
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: matrix-api
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: matrix-api-tls
+  routes:
+    - match: Host(`shuu.ru`) && PathPrefix(`/.well-known/matrix`))
+      kind: Rule
+      services:
+        - name: well-known
+          scheme: http
+          port: http
+    - match: Host(`matrix.shuu.ru`) && Path(`/_matrix/client/.*?/(sync|user/(.*/filter(/.*)?)|keys/changes|rooms/.*/messages)`)
+      kind: Rule
+      services:
+        - name: sync-api
+          scheme: http
+          port: sync-api
+    - match: Host(`matrix.shuu.ru`) && Path(`/_matrix/client`)
+      kind: Rule
+      services:
+        - name: client-api
+          scheme: http
+          port: client-api
+    - match: Host(`matrix.shuu.ru`) && Path(`/_matrix/(federation|key)`)
+      kind: Rule
+      services:
+        - name: federation-api
+          scheme: http
+          port: federation-api
+
+    - match: Host(`matrix.shuu.ru`) && Path(`/_matrix/media`)
+      kind: Rule
+      services:
+        - name: media-api
+          scheme: http
+          port: media-api
