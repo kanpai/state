@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: well-known
+spec:
+  ports:
+    - port: 3000
+      name: http
+  selector:
+    app: well-known
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: well-known
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: well-known
+  template:
+    metadata:
+      labels:
+        app: well-known
+    spec:
+      volumes:
+        - name: well-known
+          configMap:
+            name: well-known-files
+      containers:
+        - name: thttpd
+          image: ghcr.io/mibmo/thttpd:latest
+          livenessProbe:
+            periodSeconds: 3
+            httpGet:
+              path: /
+              port: http
+          volumeMounts:
+            - name: well-known
+              subPath: well-known_server.json
+              mountPath: /data/server
+              readOnly: true
+            - name: well-known
+              subPath: well-known_client.json
+              mountPath: /data/client
+              readOnly: true

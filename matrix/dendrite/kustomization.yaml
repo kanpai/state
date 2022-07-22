@@ -1,6 +1,9 @@
 resources:
   - server-certificate.yaml
   - matrix-private-key.yaml
+  - well-known.yaml
+
+  # Polylith components
   - appservice-api.yaml
   - client-api.yaml
   - federation-api.yaml
@@ -13,3 +16,7 @@ configMapGenerator:
   - name: dendrite-config
     files:
       - config.yaml
+  - name: well-known-files
+    files:
+      - well-known_client.json
+      - well-known_server.json
