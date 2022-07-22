@@ -157,7 +157,7 @@ client_api:
   # Whether to require reCAPTCHA for registration. If you have enabled registration
   # then this is HIGHLY RECOMMENDED to reduce the risk of your homeserver being used
   # for coordinated spam attacks.
-  enable_registration_captcha: true
+  enable_registration_captcha: false
 
   # Settings for ReCAPTCHA.
   recaptcha_public_key: ""
