@@ -1,0 +1,126 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-api
+spec:
+  ports:
+    - port: 7771
+      name: api
+  selector:
+    app: client-api
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client-api
+  template:
+    metadata:
+      labels:
+        app: client-api
+    spec:
+      volumes:
+        - name: config
+          configMap:
+            name: dendrite-config
+        - name: certificate
+          secret:
+            secretName: matrix-tls
+            optional: false
+        - name: matrix-key
+          secret:
+            secretName: matrix-key
+            optional: false
+      containers:
+        - name: client-api
+          image: docker.io/matrixdotorg/dendrite-polylith:latest
+          command: ["clientapi"]
+          volumeMounts:
+            - name: config
+              subPath: dendrite-config.yaml
+              mountPath: /etc/dendrite/dendrite.yaml
+              readOnly: true
+            - name: certificate
+              subPath: tls.crt
+              mountPath: /etc/dendrite/server.crt
+              readOnly: true
+            - name: certificate
+              subPath: tls.key
+              mountPath: /etc/dendrite/server.key
+              readOnly: true
+            - name: matrix-key
+              subPath: private.key
+              mountPath: /etc/dendrite/matrix_key.pem
+              readOnly: true
+          # tcp liveness probe on api port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-api-database
+  labels:
+    app: client-api-database
+spec:
+  ports:
+    - port: 5432
+      name: database
+  selector:
+    app: client-api-database
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: client-api-database
+spec:
+  selector:
+    matchLabels:
+      app: client-api-database
+  serviceName: "client-api-database"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: client-api-database
+    spec:
+      volumes:
+        - name: database
+          persistentVolumeClaim:
+            claimName: client-api-database
+      containers:
+        - name: postgres
+          image: docker.io/postgres:14.4-alpine
+          ports:
+            - containerPort: 5432
+              name: postgres
+          volumeMounts:
+            - name: database
+              mountPath: /var/lib/postgresql
+          env:
+            - name: POSTGRES_DB
+              value: "clientapi"
+            - name: POSTGRES_USER
+              value: "client-api"
+            - name: POSTGRES_PASSWORD
+              value: "client-api" # use sealed secret
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - client-api
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: client-api-database
+spec:
+  storageClassName: scw-bssd-retain
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

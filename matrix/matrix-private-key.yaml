@@ -1,0 +1,15 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: matrix-key
+spec:
+  encryptedData:
+    private.key: AgAnHbjrLyvzj1OGRIR2LiwGw+H6LMz8fIWkoiWnXHhZQXdvyDrLHXdw7PDyau5cb2Qj3ckMd4G5Tj+amuuyrLK0MEtlUIKlb/0Jj6mx+R9tTX2u6nkf7sFzvfzu/RLGQIj6fZjUsRlyR6n66M/y3BguXAmjPNFtINtDc96Ax8dxh9NHb8smmboHSm2zXoaldOElRV9g3ahvC/pD0khHlWVNPrRGm57pXbDSTlf75rkAgRkb5ybtWFf3hDVCTVCGF/GuHdwVzsG1JIoS0IMF4jPhwiZ19KOr4zurBWRLzKcFYccadoES0Oc3/Mhq0pFlwMIe/0Fl/HEBz/MnXnQBQ1mS+r7dr5YXjLcR9sgRqEvUUbeGHVJB1lIJVYKKEmF0LjqSRLAOMBpXBrOd/9SUlIMkGglYBnFHi5cqhMDvVG5QR0OCMCNsdBQNus4a86c3iEnfiKgycUN1pVU+iI5hIvSPEwLl2DEnGTMuM/8l1mDF0V8OpszoTaCvBkO2vSRPUx/8uVOqJhj7tmK09FR8cW7A5yY2zK/Tt8ZtIyvsdBOxxNKtO0q+IwVZe+mbsK/wo6yYF7Kzh2+H3I00oxM+ZnVIASQqwwUQyV39hhGOobIS3/T0wPEwSIYLirM3/rGAbc20yYngig3LP+FZIJH6Qw3Jdwv8rVk0W+coPrk0xeeryZ5Krli1M/RRm5xN+oIlvVq+TOcf8M6cNlwYnLrdZBECWLpBusvRek7VeGlyoR7xzoO8gJ2L7xPQSqDCZrVfeCyARWO32jrY0SZQj+cd8iKJq2bFogDBNzK8lJ6ddjnxw8AKVnzFftVRVl4LbQyUA8FQkALqwa/TicdM9RHsYizdoKxrlffXgKqhmYgkkP9ssprKxtMSU0Y/2g==
+  template:
+    data: null
+    metadata:
+      creationTimestamp: null
+      name: matrix-key
+      namespace: matrix
+    type: Opaque

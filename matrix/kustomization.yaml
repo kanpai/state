@@ -1,0 +1,8 @@
+resources:
+  - server-certificate.yaml
+  - matrix-private-key.yaml
+  - client-api.yaml
+configMapGenerator:
+  - name: dendrite-config
+    files:
+      - dendrite-config.yaml

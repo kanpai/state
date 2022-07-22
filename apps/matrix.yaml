@@ -13,3 +13,35 @@ spec:
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: homeserver
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: matrix
+  source:
+    repoURL: git@github.com:kanpai/infra.git
+    targetRevision: HEAD
+    path: matrix
+    kustomize:
+  destination:
+    name: in-cluster
+    namespace: matrix
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m

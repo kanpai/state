@@ -1,0 +1,43 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: matrix-ca
+spec:
+  isCA: true
+  commonName: shuu.ru
+  secretName: matrix-ca
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: selfsigned
+    kind: ClusterIssuer
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: matrix-ca-issuer
+spec:
+  ca:
+    secretName: matrix-ca
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: matrix-server
+spec:
+  issuerRef:
+    kind: Issuer
+    name: matrix-ca-issuer
+  secretName: matrix-tls
+  commonName: shuu.ru
+  dnsNames:
+    - shuu.ru
+  usages:
+    - key encipherment
+    - digital signature
+    - server auth
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS1
+    size: 4096
