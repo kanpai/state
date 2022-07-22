@@ -190,7 +190,7 @@ client_api:
 federation_api:
   internal_api:
     listen: http://[::]:7772 # The listen address for incoming API requests
-    connect: http://federation_api:7772 # The connect address for other components to use
+    connect: http://federation-api:7772 # The connect address for other components to use
   external_api:
     listen: http://[::]:8072
   database:
@@ -229,7 +229,7 @@ federation_api:
 key_server:
   internal_api:
     listen: http://[::]:7779 # The listen address for incoming API requests
-    connect: http://key_server:7779 # The connect address for other components to use
+    connect: http://keyserver:7779 # The connect address for other components to use
   database:
     connection_string: postgresql://keyserver:keyserver@keyserver-database/keyserver?sslmode=disable
     max_open_conns: 10
@@ -240,7 +240,7 @@ key_server:
 media_api:
   internal_api:
     listen: http://[::]:7774 # The listen address for incoming API requests
-    connect: http://media_api:7774 # The connect address for other components to use
+    connect: http://media-api:7774 # The connect address for other components to use
   external_api:
     listen: http://[::]:8074
   database:
@@ -290,7 +290,7 @@ mscs:
 room_server:
   internal_api:
     listen: http://[::]:7770 # The listen address for incoming API requests
-    connect: http://room_server:7770 # The connect address for other components to use
+    connect: http://roomserver:7770 # The connect address for other components to use
   database:
     connection_string: postgresql://roomserver:roomserver@roomserver-database/roomserver?sslmode=disable
     max_open_conns: 10
@@ -301,7 +301,7 @@ room_server:
 sync_api:
   internal_api:
     listen: http://[::]:7773 # The listen address for incoming API requests
-    connect: http://sync_api:7773 # The connect address for other components to use
+    connect: http://sync-api:7773 # The connect address for other components to use
   external_api:
     listen: http://[::]:8073
   database:
@@ -319,7 +319,7 @@ sync_api:
 user_api:
   internal_api:
     listen: http://[::]:7781 # The listen address for incoming API requests
-    connect: http://user_api:7781 # The connect address for other components to use
+    connect: http://user-api:7781 # The connect address for other components to use
   account_database:
     connection_string: postgresql://user-api:user-api@user-api-database/userapi?sslmode=disable
     max_open_conns: 10
