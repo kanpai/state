@@ -5,4 +5,4 @@ resources:
 configMapGenerator:
   - name: dendrite-config
     files:
-      - dendrite-config.yaml
+      - config.yaml
