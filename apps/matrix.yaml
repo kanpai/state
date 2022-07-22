@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: matrix
+  namespace: argocd
+spec:
+  sourceRepos:
+    - 'git@github.com:kanpai/infra.git'
+    - 'https://nats-io.github.io/k8s/helm/charts'
+  destinations:
+    - namespace: 'matrix'
+      server: '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
