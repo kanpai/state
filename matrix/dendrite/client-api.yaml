@@ -40,8 +40,7 @@ spec:
       containers:
         - name: client-api
           image: docker.io/matrixdotorg/dendrite-polylith:latest
-          args: ["-really-enable-open-registration", "clientapi"]
-#         args: ["clientapi"]
+          args: ["clientapi"]
           volumeMounts:
             - name: config
               subPath: config.yaml

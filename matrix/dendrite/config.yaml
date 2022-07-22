@@ -144,7 +144,7 @@ client_api:
 
   # Prevents new users from being able to register on this homeserver, except when
   # using the registration shared secret below.
-  registration_disabled: false
+  registration_disabled: true
 
   # Prevents new guest accounts from being created. Guest registration is also
   # disabled implicitly by setting 'registration_disabled' above.
@@ -152,7 +152,7 @@ client_api:
 
   # If set, allows registration by anyone who knows the shared secret, regardless
   # of whether registration is otherwise disabled.
-  registration_shared_secret: ""
+  registration_shared_secret: "WJU7eM5b5qkhE9AzKtSsAsBNjAWi5bxU"
 
   # Whether to require reCAPTCHA for registration. If you have enabled registration
   # then this is HIGHLY RECOMMENDED to reduce the risk of your homeserver being used
