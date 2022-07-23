@@ -7,15 +7,29 @@ spec:
     kind: ClusterIssuer
     name: scaleway-letsencrypt
   secretName: matrix-api-tls
-  commonName: matrix.shuu.ru
+  commonName: shuu.ru
   dnsNames:
     - shuu.ru
     - matrix.shuu.ru
 ---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   name: matrix-redirect-insecure
+# spec:
+#   entryPoints:
+#     - web
+#   routes:
+#     - match: Host(`shuu.ru`) || Host(`matrix.shuu.ru`)
+#       kind: Rule
+#       middlewares:
+#         - name: redirect-https
+#           namespace: traefik
+---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: matrix-api
+  name: well-known
 spec:
   entryPoints:
     - websecure
@@ -28,6 +42,17 @@ spec:
         - name: well-known
           scheme: http
           port: http
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: matrix-api
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: matrix-api-tls
+  routes:
     - match: Host(`matrix.shuu.ru`) && Path(`/_matrix/client/.*?/(sync|user/(.*/filter(/.*)?)|keys/changes|rooms/.*/messages)`)
       kind: Rule
       services:
@@ -46,7 +71,6 @@ spec:
         - name: federation-api
           scheme: http
           port: federation-api
-
     - match: Host(`matrix.shuu.ru`) && Path(`/_matrix/media`)
       kind: Rule
       services:
