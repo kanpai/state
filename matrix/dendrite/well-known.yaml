@@ -34,7 +34,7 @@ spec:
           livenessProbe:
             periodSeconds: 3
             httpGet:
-              path: /
+              path: /healthz
               port: http
           volumeMounts:
             - name: config
