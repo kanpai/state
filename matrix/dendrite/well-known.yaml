@@ -24,9 +24,9 @@ spec:
         app: well-known
     spec:
       volumes:
-        - name: well-known
+        - name: config
           configMap:
-            name: well-known-files
+            name: well-known-config
       containers:
         - name: nginx
           image: docker.io/nginx:alpine
@@ -36,15 +36,7 @@ spec:
               path: /
               port: http
           volumeMounts:
-            - name: well-known
+            - name: config
               subPath: well-known-nginx.conf
               mountPath: /etc/nginx/nginx.conf
-              readOnly: true
-            - name: well-known
-              subPath: well-known_server.json
-              mountPath: /data/.well-known/matrix/server
-              readOnly: true
-            - name: well-known
-              subPath: well-known_client.json
-              mountPath: /data/.well-known/matrix/client
               readOnly: true

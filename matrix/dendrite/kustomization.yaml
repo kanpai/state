@@ -17,8 +17,6 @@ configMapGenerator:
   - name: dendrite-config
     files:
       - config.yaml
-  - name: well-known-files
+  - name: well-known-config
     files:
       - well-known-nginx.conf
-      - well-known_client.json
-      - well-known_server.json
