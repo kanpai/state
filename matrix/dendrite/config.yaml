@@ -57,7 +57,7 @@ global:
 
   # Disables federation. Dendrite will not be able to communicate with other servers
   # in the Matrix federation and the federation API will not be exposed.
-  disable_federation: true
+  disable_federation: false
 
   # Configures the handling of presence events. Inbound controls whether we receive
   # presence events from other servers, outbound controls whether we send presence
