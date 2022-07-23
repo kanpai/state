@@ -53,25 +53,26 @@ spec:
   tls:
     secretName: matrix-api-tls
   routes:
-    - match: Host(`matrix.shuu.ru`) && Path(`/_matrix/client/.*?/(sync|user/(.*/filter(/.*)?)|keys/changes|rooms/.*/messages)`)
+    - match: Path(`/test`)
+#   - match: Host(`matrix.shuu.ru`) && Path(`/_matrix/client/.*?/(sync|user/(.*/filter(/.*)?)|keys/changes|rooms/.*/messages)`)
       kind: Rule
       services:
         - name: sync-api
           scheme: http
-          port: sync-api
-    - match: Host(`matrix.shuu.ru`) && Path(`/_matrix/client`)
+          port: 8073
+    - match: Host(`matrix.shuu.ru`) && PathPrefix(`/_matrix/client`)
       kind: Rule
       services:
         - name: client-api
           scheme: http
           port: client-api
-    - match: Host(`matrix.shuu.ru`) && Path(`/_matrix/(federation|key)`)
+    - match: Host(`matrix.shuu.ru`) && PathPrefix(`/_matrix/(federation|key)`)
       kind: Rule
       services:
         - name: federation-api
           scheme: http
           port: federation-api
-    - match: Host(`matrix.shuu.ru`) && Path(`/_matrix/media`)
+    - match: Host(`matrix.shuu.ru`) && PathPrefix(`/_matrix/media`)
       kind: Rule
       services:
         - name: media-api
