@@ -28,14 +28,18 @@ spec:
           configMap:
             name: well-known-files
       containers:
-        - name: thttpd
-          image: ghcr.io/mibmo/thttpd:latest
+        - name: nginx
+          image: docker.io/nginx:alpine
           livenessProbe:
             periodSeconds: 3
             httpGet:
               path: /
               port: http
           volumeMounts:
+            - name: well-known
+              subPath: well-known-nginx.conf
+              mountPath: /etc/nginx/nginx.conf
+              readOnly: true
             - name: well-known
               subPath: well-known_server.json
               mountPath: /data/.well-known/matrix/server

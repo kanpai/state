@@ -19,5 +19,6 @@ configMapGenerator:
       - config.yaml
   - name: well-known-files
     files:
+      - well-known-nginx.conf
       - well-known_client.json
       - well-known_server.json
