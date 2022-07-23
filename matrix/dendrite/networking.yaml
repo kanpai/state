@@ -25,6 +25,7 @@ spec:
 #       middlewares:
 #         - name: redirect-https
 #           namespace: traefik
+
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -53,20 +54,19 @@ spec:
   tls:
     secretName: matrix-api-tls
   routes:
-    - match: Path(`/test`)
-#   - match: Host(`matrix.shuu.ru`) && Path(`/_matrix/client/.*?/(sync|user/(.*/filter(/.*)?)|keys/changes|rooms/.*/messages)`)
+    - match: Host(`matrix.shuu.ru`) && Path(`/_matrix/client/{url:.*?/(sync|user/(.*/filter(/.*)?)|keys/changes|rooms/.*/messages)$}`)
       kind: Rule
       services:
         - name: sync-api
           scheme: http
-          port: 8073
+          port: sync-api
     - match: Host(`matrix.shuu.ru`) && PathPrefix(`/_matrix/client`)
       kind: Rule
       services:
         - name: client-api
           scheme: http
           port: client-api
-    - match: Host(`matrix.shuu.ru`) && PathPrefix(`/_matrix/(federation|key)`)
+    - match: Host(`matrix.shuu.ru`) && PathPrefix(`/_matrix/{url:(federation|key)}`)
       kind: Rule
       services:
         - name: federation-api
