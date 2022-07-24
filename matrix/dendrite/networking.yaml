@@ -7,10 +7,10 @@ spec:
     kind: ClusterIssuer
     name: scaleway-letsencrypt
   secretName: matrix-api-tls
-  commonName: shuu.ru
+  commonName: kanp.ai
   dnsNames:
-    - shuu.ru
-    - matrix.shuu.ru
+    - kanp.ai
+    - matrix.kanp.ai
 ---
 # apiVersion: traefik.containo.us/v1alpha1
 # kind: IngressRoute
@@ -37,7 +37,7 @@ spec:
   tls:
     secretName: matrix-api-tls
   routes:
-    - match: Host(`shuu.ru`) && PathPrefix(`/.well-known/matrix/`)
+    - match: Host(`kanp.ai`) && PathPrefix(`/.well-known/matrix/`)
       kind: Rule
       services:
         - name: well-known
@@ -54,25 +54,25 @@ spec:
   tls:
     secretName: matrix-api-tls
   routes:
-    - match: Host(`matrix.shuu.ru`) && Path(`/_matrix/client/{url:.*?/(sync|user/(.*/filter(/.*)?)|keys/changes|rooms/.*/messages)$}`)
+    - match: Host(`matrix.kanp.ai`) && Path(`/_matrix/client/{url:.*?/(sync|user/(.*/filter(/.*)?)|keys/changes|rooms/.*/messages)$}`)
       kind: Rule
       services:
         - name: sync-api
           scheme: http
           port: sync-api
-    - match: Host(`matrix.shuu.ru`) && PathPrefix(`/_matrix/client`)
+    - match: Host(`matrix.kanp.ai`) && PathPrefix(`/_matrix/client`)
       kind: Rule
       services:
         - name: client-api
           scheme: http
           port: client-api
-    - match: Host(`matrix.shuu.ru`) && PathPrefix(`/_matrix/{url:(federation|key)}`)
+    - match: Host(`matrix.kanp.ai`) && PathPrefix(`/_matrix/{url:(federation|key)}`)
       kind: Rule
       services:
         - name: federation-api
           scheme: http
           port: federation-api
-    - match: Host(`matrix.shuu.ru`) && PathPrefix(`/_matrix/media`)
+    - match: Host(`matrix.kanp.ai`) && PathPrefix(`/_matrix/media`)
       kind: Rule
       services:
         - name: media-api

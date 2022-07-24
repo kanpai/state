@@ -4,7 +4,7 @@ version: 2
 # Global Matrix configuration. This configuration applies to all components.
 global:
   # The domain name of this homeserver.
-  server_name: shuu.ru
+  server_name: kanp.ai
 
   # The path to the signing private key file, used to sign requests and events.
   # Note that this is NOT the same private key as used for TLS! To generate a
@@ -47,7 +47,7 @@ global:
 
   # The server name to delegate server-server communications to, with optional port
   # e.g. localhost:443
-  well_known_server_name: "matrix.shuu.ru"
+  well_known_server_name: "matrix.kanp.ai"
 
   # Lists of domains that the server will trust as identity servers to verify third
   # party identifiers such as phone numbers and email addresses.
@@ -57,7 +57,7 @@ global:
 
   # Disables federation. Dendrite will not be able to communicate with other servers
   # in the Matrix federation and the federation API will not be exposed.
-  disable_federation: false
+  disable_federation: true
 
   # Configures the handling of presence events. Inbound controls whether we receive
   # presence events from other servers, outbound controls whether we send presence

@@ -4,7 +4,7 @@ metadata:
   name: matrix-ca
 spec:
   isCA: true
-  commonName: shuu.ru
+  commonName: kanp.ai
   secretName: matrix-ca
   privateKey:
     algorithm: ECDSA
@@ -30,9 +30,9 @@ spec:
     kind: Issuer
     name: matrix-ca-issuer
   secretName: matrix-tls
-  commonName: shuu.ru
+  commonName: kanp.ai
   dnsNames:
-    - shuu.ru
+    - kanp.ai
   usages:
     - key encipherment
     - digital signature
