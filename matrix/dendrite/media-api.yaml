@@ -27,6 +27,9 @@ spec:
         app: media-api
     spec:
       volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: media-store
         - name: config
           configMap:
             name: dendrite-config
@@ -48,6 +51,8 @@ spec:
           image: docker.io/matrixdotorg/dendrite-polylith:latest
           args: ["mediaapi"]
           volumeMounts:
+            - name: media
+              mountPath: /etc/dendrite/media_store/
             - name: config
               subPath: config.yaml
               mountPath: /etc/dendrite/dendrite.yaml
@@ -68,6 +73,18 @@ spec:
               mountPath: /etc/dendrite/old-keys/
               readOnly: true
           # tcp liveness probe on api port
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: media-store
+spec:
+  storageClassName: scw-bssd-retain
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
 ---
 apiVersion: v1
 kind: Service
