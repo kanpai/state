@@ -22,3 +22,21 @@ configMapGenerator:
   - name: well-known-config
     files:
       - well-known-nginx.conf
+
+replicas:
+  - name: appservice-api
+    count: 3
+  - name: client-api
+    count: 3
+  - name: federation-api
+    count: 3
+  - name: keyserver
+    count: 3
+  - name: media-api
+    count: 3
+  - name: roomserver
+    count: 3
+  - name: sync-api
+    count: 3
+  - name: user-api
+    count: 3
