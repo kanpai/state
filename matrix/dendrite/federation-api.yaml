@@ -17,6 +17,7 @@ metadata:
   name: federation-api
 spec:
   replicas: 1
+  revisionHistoryLimit: 1
   selector:
     matchLabels:
       app: federation-api

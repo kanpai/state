@@ -15,7 +15,7 @@ metadata:
   name: well-known
 spec:
   replicas: 1
-  revisionHistoryLimit: 0
+  revisionHistoryLimit: 1
   selector:
     matchLabels:
       app: well-known
