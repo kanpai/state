@@ -25,18 +25,18 @@ configMapGenerator:
 
 replicas:
   - name: appservice-api
-    count: 3
+    count: 1
   - name: client-api
-    count: 3
+    count: 1
   - name: federation-api
-    count: 3
+    count: 1
   - name: keyserver
-    count: 3
+    count: 1
   - name: media-api
-    count: 3
+    count: 1
   - name: roomserver
-    count: 3
+    count: 1
   - name: sync-api
-    count: 3
+    count: 1
   - name: user-api
-    count: 3
+    count: 1
