@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mx-kanpai
+  name: matrixto
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mx-kanpai
+      app: matrixto
   template:
     metadata:
       labels:
-        app: mx-kanpai
+        app: matrixto
     spec:
       containers:
         - name: matrixto

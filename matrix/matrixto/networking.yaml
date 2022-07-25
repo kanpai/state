@@ -1,7 +1,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: mx-kanpai-http
+  name: matrixto-http
 spec:
   entryPoints:
     - web
@@ -9,14 +9,14 @@ spec:
     - match: Host(`mx.kanp.ai`)
       kind: Rule
       services:
-        - name: mx-kanpai
+        - name: matrixto
           scheme: http
           port: 3000
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: mx-kanpai-https
+  name: matrixto-https
 spec:
   entryPoints:
     - websecure
@@ -26,6 +26,6 @@ spec:
     - match: Host(`mx.kanp.ai`)
       kind: Rule
       services:
-        - name: mx-kanpai
+        - name: matrixto
           scheme: http
           port: 3000
