@@ -1,0 +1,31 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: mibdev-http
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`mib.dev`)
+      kind: Rule
+      services:
+        - name: mibdev
+          scheme: http
+          port: 3000
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: mibdev-https
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: mib-dev-tls
+  routes:
+    - match: Host(`mib.dev`)
+      kind: Rule
+      services:
+        - name: mibdev
+          scheme: http
+          port: 3000

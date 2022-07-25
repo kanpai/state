@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: mib-dev
+spec:
+  issuerRef:
+    kind: ClusterIssuer
+    name: scaleway-letsencrypt
+  secretName: mib-dev-tls
+  commonName: mib.dev
+  dnsNames:
+    - mib.dev

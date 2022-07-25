@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mibdev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mibdev
+  template:
+    metadata:
+      labels:
+        app: mibdev
+    spec:
+      containers:
+        - name: webserver
+          image: ghcr.io/mibmo/mib.dev:latest
+          ports:
+            - containerPort: 3000
+              name: http
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            failureThreshold: 30
+            periodSeconds: 10
