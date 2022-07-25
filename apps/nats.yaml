@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nats
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: matrix
+  source:
+    repoURL: https://nats-io.github.io/k8s/helm/charts
+    chart: nats
+    targetRevision: 0.17.1
+    helm:
+      parameters:
+        - name: "nats.jetstream.enabled"
+          value: "true"
+        - name: "nats.jetstream.memStorage.enabled"
+          value: "true"
+        - name: "nats.jetstream.memStorage.size"
+          value: "2Gi"
+        - name: "nats.jetstream.fileStorage.enabled"
+          value: "true"
+        - name: "nats.jetstream.fileStorage.size"
+          value: "1Gi"
+        - name: "nats.jetstream.fileStorage.storageDirectory"
+          value: "/data/"
+  destination:
+    name: in-cluster
+    namespace: matrix
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
