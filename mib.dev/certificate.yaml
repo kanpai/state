@@ -10,3 +10,4 @@ spec:
   commonName: mib.dev
   dnsNames:
     - mib.dev
+    - www.mib.dev
