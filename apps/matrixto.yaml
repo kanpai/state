@@ -14,7 +14,7 @@ spec:
     kustomize:
   destination:
     name: in-cluster
-    namespace: matrix
+    namespace: matrixto
   syncPolicy:
     automated:
       prune: true
