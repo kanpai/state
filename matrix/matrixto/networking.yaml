@@ -1,0 +1,31 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: mx-kanpai-http
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`mx.kanp.ai`)
+      kind: Rule
+      services:
+        - name: mx-kanpai
+          scheme: http
+          port: 3000
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: mx-kanpai-https
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: mx-kanpi-tls
+  routes:
+    - match: Host(`mx.kanp.ai`)
+      kind: Rule
+      services:
+        - name: mx-kanpai
+          scheme: http
+          port: 3000

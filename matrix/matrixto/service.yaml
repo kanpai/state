@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mx-kanpai
+spec:
+  ports:
+    - port: 3000
+      name: http
+  selector:
+    app: mx-kanpai

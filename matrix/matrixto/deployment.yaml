@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mx-kanpai
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mx-kanpai
+  template:
+    metadata:
+      labels:
+        app: mx-kanpai
+    spec:
+      containers:
+        - name: matrixto
+          image: ghcr.io/mibmo/matrix.to:latest
+          ports:
+            - containerPort: 3000
+              name: http
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+            failureThreshold: 30
+            periodSeconds: 10
