@@ -21,7 +21,7 @@ spec:
   entryPoints:
     - websecure
   tls:
-    secretName: mx-kanpi-tls
+    secretName: mx-kanpai-tls
   routes:
     - match: Host(`mx.kanp.ai`)
       kind: Rule
