@@ -139,7 +139,7 @@ spec:
               command:
                 - pg_isready
                 - -U
-                - media-api
+                - mediaapi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

@@ -120,7 +120,7 @@ spec:
               command:
                 - pg_isready
                 - -U
-                - appservice-api
+                - appserviceapi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

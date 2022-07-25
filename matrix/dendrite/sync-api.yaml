@@ -122,7 +122,7 @@ spec:
               command:
                 - pg_isready
                 - -U
-                - sync-api
+                - syncapi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

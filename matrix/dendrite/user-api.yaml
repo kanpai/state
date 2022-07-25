@@ -120,7 +120,7 @@ spec:
               command:
                 - pg_isready
                 - -U
-                - user-api
+                - userapi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

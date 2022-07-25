@@ -122,7 +122,7 @@ spec:
               command:
                 - pg_isready
                 - -U
-                - federation-api
+                - federationapi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
