@@ -114,9 +114,9 @@ spec:
             - name: POSTGRES_DB
               value: "syncapi"
             - name: POSTGRES_USER
-              value: "sync-api"
+              value: "syncapi"
             - name: POSTGRES_PASSWORD
-              value: "sync-api" # use sealed secret
+              value: "syncapi" # use sealed secret
           livenessProbe:
             exec:
               command:

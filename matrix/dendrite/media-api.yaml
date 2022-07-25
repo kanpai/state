@@ -131,9 +131,9 @@ spec:
             - name: POSTGRES_DB
               value: "mediaapi"
             - name: POSTGRES_USER
-              value: "media-api"
+              value: "mediaapi"
             - name: POSTGRES_PASSWORD
-              value: "media-api" # use sealed secret
+              value: "mediaapi" # use sealed secret
           livenessProbe:
             exec:
               command:

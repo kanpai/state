@@ -112,9 +112,9 @@ spec:
             - name: POSTGRES_DB
               value: "appserviceapi"
             - name: POSTGRES_USER
-              value: "appservice-api"
+              value: "appserviceapi"
             - name: POSTGRES_PASSWORD
-              value: "appservice-api" # use sealed secret
+              value: "appserviceapi" # use sealed secret
           livenessProbe:
             exec:
               command:

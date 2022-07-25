@@ -114,9 +114,9 @@ spec:
             - name: POSTGRES_DB
               value: "federationapi"
             - name: POSTGRES_USER
-              value: "federation-api"
+              value: "federationapi"
             - name: POSTGRES_PASSWORD
-              value: "federation-api" # use sealed secret
+              value: "federationapi" # use sealed secret
           livenessProbe:
             exec:
               command:

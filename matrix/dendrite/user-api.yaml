@@ -112,9 +112,9 @@ spec:
             - name: POSTGRES_DB
               value: "userapi"
             - name: POSTGRES_USER
-              value: "user-api"
+              value: "userapi"
             - name: POSTGRES_PASSWORD
-              value: "user-api" # use sealed secret
+              value: "userapi" # use sealed secret
           livenessProbe:
             exec:
               command:

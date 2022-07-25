@@ -114,9 +114,9 @@ spec:
             - name: POSTGRES_DB
               value: "clientapi"
             - name: POSTGRES_USER
-              value: "client-api"
+              value: "clientapi"
             - name: POSTGRES_PASSWORD
-              value: "client-api" # use sealed secret
+              value: "clientapi" # use sealed secret
           livenessProbe:
             exec:
               command:
