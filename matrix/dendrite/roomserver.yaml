@@ -127,7 +127,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: roomserver-database
 spec:
-  storageClassName: scw-bssd-retain
+  storageClassName: scw-bssd
   accessModes:
     - ReadWriteOnce
   resources:

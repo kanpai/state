@@ -79,7 +79,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: media-store
 spec:
-  storageClassName: scw-bssd-retain
+  storageClassName: scw-bssd
   accessModes:
     - ReadWriteOnce
   resources:
@@ -146,7 +146,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: media-api-database
 spec:
-  storageClassName: scw-bssd-retain
+  storageClassName: scw-bssd
   accessModes:
     - ReadWriteOnce
   resources:

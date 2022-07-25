@@ -129,7 +129,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: federation-api-database
 spec:
-  storageClassName: scw-bssd-retain
+  storageClassName: scw-bssd
   accessModes:
     - ReadWriteOnce
   resources:
