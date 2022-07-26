@@ -128,6 +128,8 @@ spec:
             - name: database
               mountPath: /var/lib/postgresql/data
           env:
+            - name: POSTGRES_INITDB_ARGS
+              value: "--lc-collate=en_GB.UTF_8"
             - name: POSTGRES_DB
               value: "mediaapi"
             - name: POSTGRES_USER
