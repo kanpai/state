@@ -107,7 +107,7 @@ spec:
               name: postgres
           volumeMounts:
             - name: database
-              mountPath: /var/lib/postgresql/
+              mountPath: /var/lib/postgresql/data
           env:
             - name: POSTGRES_DB
               value: "appserviceapi"
