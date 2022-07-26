@@ -107,7 +107,7 @@ spec:
               name: postgres
           volumeMounts:
             - name: database
-              mountPath: /var/lib/postgresql/data
+              mountPath: /var/lib/postgresql
           env:
             - name: POSTGRES_INITDB_ARGS
               value: "--lc-collate=en_GB.UTF_8"
