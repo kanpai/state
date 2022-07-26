@@ -109,8 +109,10 @@ spec:
               name: postgres
           volumeMounts:
             - name: database
-              mountPath: /var/lib/postgresql
+              mountPath: /var/lib/postgresql/data
           env:
+            - name: PGDATA
+              value: "/var/lib/postgresql/data/pgdata"
             - name: POSTGRES_INITDB_ARGS
               value: "--locale=en_GB.UTF_8"
             - name: POSTGRES_DB
