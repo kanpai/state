@@ -110,7 +110,7 @@ spec:
               mountPath: /var/lib/postgresql
           env:
             - name: POSTGRES_INITDB_ARGS
-              value: "--lc-collate=en_GB.UTF_8"
+              value: "--locale=en_GB.UTF_8"
             - name: POSTGRES_DB
               value: "keyserver"
             - name: POSTGRES_USER
