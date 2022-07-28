@@ -12,6 +12,9 @@ spec:
     chart: traefik
     targetRevision: 10.24.0
     helm:
+      parameters:
+        - name: "ports.web.redirectTo"
+          value: "websecure"
   destination:
     name: in-cluster
     namespace: traefik
