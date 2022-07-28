@@ -132,7 +132,7 @@ app_service_api:
 
   # Appservice configuration files to load into this homeserver.
   config_files:
-  #  - /path/to/appservice_registration.yaml
+     - /etc/dendrite/appservices/discord-registration.yaml
 
 # Configuration for the Client API.
 client_api:
