@@ -67,4 +67,11 @@ spec:
             - name: matrix-key-old
               mountPath: /etc/dendrite/old-keys/
               readOnly: true
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi
           # tcp liveness probe on api port
