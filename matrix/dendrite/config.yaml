@@ -100,7 +100,7 @@ global:
 
   # Configuration for Prometheus metric collection.
   metrics:
-    enabled: false
+    enabled: true
     basic_auth:
       username: metrics
       password: metrics
