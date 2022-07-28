@@ -12,13 +12,8 @@ spec:
     chart: traefik
     targetRevision: 10.24.0
     helm:
-      parameters:
-      - name: "ports.matrix.port"
-        value: "8448"
-      - name: "ports.matrix.exposedPort"
-        value: "8448"
   destination:
-    server: https://kubernetes.default.svc
+    name: in-cluster
     namespace: traefik
   syncPolicy:
     automated:
