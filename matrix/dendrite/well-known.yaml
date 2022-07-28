@@ -41,3 +41,10 @@ spec:
               subPath: well-known-nginx.conf
               mountPath: /etc/nginx/nginx.conf
               readOnly: true
+          resources:
+            requests:
+              cpu: 5m
+              memory: 8Mi
+            limits:
+              cpu: 50m
+              memory: 32Mi
