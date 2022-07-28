@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://nats-io.github.io/k8s/helm/charts
     chart: nats
-    targetRevision: 0.17.1
+    targetRevision: 0.17.3
     helm:
       parameters:
         - name: "nats.jetstream.enabled"
