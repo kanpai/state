@@ -1,0 +1,8 @@
+resources:
+  - database.yaml
+  - bridge.yaml
+  - registration.yaml
+configMapGenerator:
+  - name: discord-bridge-config
+    files:
+      - config.yaml

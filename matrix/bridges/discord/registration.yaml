@@ -1,0 +1,16 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: discord-bridge-registration
+  namespace: matrix
+spec:
+  encryptedData:
+    discord-registration.yaml: AgBwKkEORbJRL+xLAQKz6QtILF7nmvMl4/FGX9qIjDE0FSHMwl4AtF/enLMkzGRlGXz52QmqVgLXrxH68GacWo8lNi88ngrO91/P/Xoxvm60N/84Hbq62bIxrLNlA22Qi/suyPRwwMfIuRyaqSwGH0MjopFINgdzNRmQbpndRzHc09VECGZI3MJoN+W9pj/lKbVPLDOYVGxPkFHP8ZisK7S3ClMoSIPcm2G5BVnMhR5UXkzPJo3zJfEjf/+iVJAZ2DnDAw9QJlxZtORjzMx8/D+CKWos93A2rsPkIQ8R3EN0GvllqK6hJ4gR4weeRGGc8tdEQnjR1HFDL6I7Hy5yEwxt/fBMJskvdrR4GGwc7O+Xr8l6jDy35KDkssKPp/xKEYwqmKOEJ2YquNIdnvz1fAVK4E95s4L4BwdLg5rB0AuSKpdStTiZjOLtDsUR6MpmPE5qF0N5WSTyuztNgB+T1WmRbkB3T3/5gLClXF6+G8SEMNxfA63ZnwOMPUr0cl9LUrsLz+LyIQQ+2gD3u0nHPDBYWBFH1aHPIWJJgsLgvjs99yKn5YT/3xN80pIWznuiVXQ6oCp1qnq0UVk90zqxXzlAzrVb3NKAcUZ8IOPSQGpd5IVdw8UJJ2M4vkgZFE63/ETWWFB12GzXzqcjUhXy7rQ7VsQ1koqIEzBpRMqpFHE7s7upVzbjOynehK1rKt2kVhlJTKFR63vx/AKXzq84FY67d0fMGs4DKc21nt6mhEQw2dX58l8v6vVI5wiE9W/TgJNcp2FnAos40fBYjJFyOZZqAbYWeYzcpNjXC9Zbiqrsr8YPBx/c7h/+j2KqteEozVsZoRzVOmQXA6rARpmiAUMRT0CokVylv8Kom+7WbAZHVy+m7svr4YOBClqqh4Q+TVVWrx6/JxjHttNVr5f/r4ga7K8/wH0xuAEHxyhHc8nb5owv8G8OZcchmnSa9+O36WOd1nNMUclhClwNlInrh4h4zPdZJ8WIPbItttgsifUBuCdojWsPkjE2MKbUTtBnnWCVsyA8/DMDosk3IcZhBR/2aVEvs4jrm82+UHv6VWgog+4V/+aTrdB5InjgkROMKXGpjG/uzy/nnAUmw7mzlYXAw2EeFp0tXfzbY4bj13hdTsvVE7NppwOLczorFj2hGlf+j4+OtWTK9q3dtahriFW9+2CJhqAy7SBMGdHL0veB9vqB1mXS783wjJ2PaVWc9rbCStkGeNsjKVcecg5HEM8koLkh58QKZqc=
+  template:
+    data: null
+    metadata:
+      creationTimestamp: null
+      name: discord-bridge-registration
+      namespace: matrix
+
