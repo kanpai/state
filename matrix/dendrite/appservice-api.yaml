@@ -41,11 +41,6 @@ spec:
             sources:
               - secret:
                   name: old-matrix-keys
-        - name: appservices
-          projected:
-            sources:
-              - secret:
-                  name: discord-bridge-registration
       containers:
         - name: appservice-api
           image: docker.io/matrixdotorg/dendrite-polylith:latest
@@ -69,9 +64,6 @@ spec:
               readOnly: true
             - name: matrix-key-old
               mountPath: /etc/dendrite/old-keys/
-              readOnly: true
-            - name: appservices
-              mountPath: /etc/dendrite/appservices/
               readOnly: true
           resources:
             requests:
