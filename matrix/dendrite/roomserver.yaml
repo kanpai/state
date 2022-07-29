@@ -66,10 +66,10 @@ spec:
               mountPath: /etc/dendrite/old-keys/
               readOnly: true
           # tcp liveness probe on api port
-         #resources:
-         #  requests:
-         #    cpu: 500m
-         #    memory: 1Gi
+          resources:
+            requests:
+              cpu: 1000m
+              memory: 2Gi
          #  limits:
          #    cpu: 1000m
          #    memory: 2Gi
