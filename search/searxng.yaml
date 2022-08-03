@@ -23,12 +23,23 @@ spec:
       labels:
         app: searxng
     spec:
+      volumes:
+        - name: config
+          configMap:
+            name: searxng-config
       containers:
         - name: searxng
           image: docker.io/searxng/searxng:2022.08.01-7c9c1124
           ports:
             - containerPort: 8080
               name: http
+          volumeMounts:
+            - name: config
+              subPath: searxng-settings.yaml
+              mountPath: /etc/searxng/settings.yml
+            - name: config
+              subPath: searxng-uwsgi.ini
+              mountPath: /etc/searxng/uwsgi.ini
           livenessProbe:
             httpGet:
               path: /
@@ -43,3 +54,4 @@ spec:
                   name: morty-key
                   key: morty_key
                   optional: false
+
