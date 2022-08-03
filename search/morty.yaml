@@ -39,7 +39,7 @@ spec:
               value: "false"
             - name: MOTY_ADDRESS
               value: "127.0.0.1:3000"
-            - name: MOTY_KEY
+            - name: MORTY_KEY
               valueFrom:
                 secretKeyRef:
                   name: morty-key
