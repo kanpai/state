@@ -6,6 +6,6 @@ spec:
   issuerRef:
     kind: ClusterIssuer
     name: scaleway-letsencrypt
-  secretName: frontned-tls
+  secretName: frontend-tls
   dnsNames:
     - search.mib.dev
