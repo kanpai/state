@@ -1,0 +1,11 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: search-web
+spec:
+  issuerRef:
+    kind: ClusterIssuer
+    name: scaleway-letsencrypt
+  secretName: search-web-tls
+  dnsNames:
+    - search.mib.dev
