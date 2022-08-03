@@ -1,0 +1,3 @@
+resources:
+  - morty.yaml
+  - morty-key.yaml
