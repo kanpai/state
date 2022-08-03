@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: searxng
+spec:
+  ports:
+    - port: 8080
+      name: http
+  selector:
+    app: searxng
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: searxng
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: searxng
+  template:
+    metadata:
+      labels:
+        app: searxng
+    spec:
+      containers:
+        - name: searxng
+          image: docker.io/searxng/searxng:2022.08.01-7c9c1124
+          ports:
+            - containerPort: 8080
+              name: http
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            periodSeconds: 10
+          env:
+            - name: BIND_ADDRESS
+              value: "127.0.0.1:8080"
+            - name: MORTY_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: morty-key
+                  key: morty_key
+                  optional: false

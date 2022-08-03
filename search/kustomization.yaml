@@ -2,4 +2,10 @@ resources:
   - certificate.yaml
   - morty.yaml
   - morty-key.yaml
+  - searxng.yaml
   - searxng-redis.yaml
+configMapGenerator:
+  - name: searxng-config
+    files:
+      - searxng-settings.yaml
+      - searxng-uwsgi.ini
