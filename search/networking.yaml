@@ -13,7 +13,7 @@ spec:
       services:
         - name: searxng
           scheme: http
-          port: http
+          port: 8080
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
