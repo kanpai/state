@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: istio
+  namespace: argocd
+spec:
+  sourceRepos:
+    - 'https://istio-release.storage.googleapis.com/charts'
+  destinations:
+    - namespace: 'istio-system'
+      server: '*'
+    - namespace: 'istio-ingress'
+      server: '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
