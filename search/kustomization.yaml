@@ -1,4 +1,5 @@
 resources:
+  - networking.yaml
   - morty.yaml
   - morty-key.yaml
   - morty-certificate.yaml
