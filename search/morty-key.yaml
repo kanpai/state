@@ -1,0 +1,16 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: morty-key
+  namespace: search
+spec:
+  encryptedData:
+    morty_key: AgCZBws16YZotlWEIz0jF+QRBwndv5iMTXn7WpQGvPpIp9+Le6yeQ2TFsGZi9ZKNPUSsnCOJSoKZkAm9WSZT80BEVUGCdr2E/CUKDMLqMzRZ/PKCnY/PEfrFqB06oDUHTQ2U0HhOq+zTr9qemtCzibVNxfi0eiXIES/lpQQ8DKod0JSgMJ0uCMedGOMufCuvwqjPGeVWSQ+ihZEfRnsV8VStTOBASR0l0jYmsX1yLQgG51MPzqW9waMFBxW4uIIHJ8l2zclg6qAv/y3iJQuzr5sHOCVMBfR8Mfj/S/1jMauUKQeJ0SlgK4AoIPrkjrkDq2EfrVltpd2qqEjjBeEQ7rtYzBiDgoHI3zBVLLoqg3e9FX5p+aUydSJSo04UNyKwo1ydD7AdLGBqYHWJ5R9nQknZU3aUtdVbRWzOdSdTdtNd9S7SUkTd8NJsoMPYD2T5GzMI1Nw/idaqmyxRcxReglvRkuTD57bBERNP+QWcw9vw/9AgcL/zvDAtbujHrx8ebpd9s33FqjZe/0ElJTBhEDf6iXKgjP1WYSUNuD5K5O6CtR1jfS84A9casowbeNhmsoTRxqXnytg9TbCXGraqtxqsUMi86I+6EuQi7gsrgkObwrftApVuiTI3aJZHxloebeNFmUKIjI3y1L8cAiCFdLwnJ0oUuAQc368nmnvFFeMA+Tkh7E2x9PdxLrDpTzTmchqDRBzrrPEcq79v5P5kjIGrDfw9ImCjRR4QvYxpiyFHgXClZ1Zhpv94irK3QJjmPmP2nWGoJGRl0ysdSQd2DLORyekpvFS//NkGqvuUN+qNLJwb0Oii+HOd
+  template:
+    data: null
+    metadata:
+      creationTimestamp: null
+      name: morty-key
+      namespace: search
+

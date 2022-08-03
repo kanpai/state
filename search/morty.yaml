@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: morty
+spec:
+  ports:
+    - port: 3000
+      name: http
+  selector:
+    app: morty
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: morty
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: morty
+  template:
+    metadata:
+      labels:
+        app: morty
+    spec:
+      containers:
+        - name: morty
+          image: docker.io/dalf/morty@sha256:248a4849c35064cc3a87bfb9ee9a578f64196395ce2875a34fa7ccebf4895a29
+          ports:
+            - containerPort: 3000
+              name: http
+          livenessProbe:
+            tcpSocket:
+              port: http
+            failureThreshold: 30
+            periodSeconds: 10
+          env:
+            - name: DEBUG
+              value: "false"
+            - name: MOTY_ADDRESS
+              value: "127.0.0.1:3000"
+            - name: MORTY_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: morty-key
+                  key: morty_key
+                  optional: false

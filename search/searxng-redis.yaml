@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: searxng-redis
+spec:
+  ports:
+    - port: 6379
+      name: redis
+  selector:
+    app: searxng-redis
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: searxng-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: searxng-redis
+  template:
+    metadata:
+      labels:
+        app: searxng-redis
+    spec:
+      containers:
+        - name: redis
+          image: docker.io/library/redis:7.0.4-alpine
+          ports:
+            - containerPort: 6379
+              name: redis
+          livenessProbe:
+            tcpSocket:
+              port: redis
+            failureThreshold: 30
+            periodSeconds: 10

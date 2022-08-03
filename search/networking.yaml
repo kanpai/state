@@ -1,0 +1,33 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: frontend
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: frontend-tls
+  routes:
+    - match: Host(`search.mib.dev`)
+      kind: Rule
+      services:
+        - name: searxng
+          scheme: http
+          port: 8080
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: imageproxy
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: imageproxy-tls
+  routes:
+    - match: Host(`ip.mib.dev`)
+      kind: Rule
+      services:
+        - name: morty
+          scheme: http
+          port: http
