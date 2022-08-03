@@ -40,11 +40,11 @@ spec:
             - name: config
               subPath: searxng-uwsgi.ini
               mountPath: /etc/searxng/uwsgi.ini
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-            periodSeconds: 10
+         #livenessProbe:
+         #  httpGet:
+         #    path: /
+         #    port: http
+         #  periodSeconds: 10
           env:
             - name: BIND_ADDRESS
               value: "127.0.0.1:8080"
