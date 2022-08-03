@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: rook
+  namespace: argocd
+spec:
+  sourceRepos:
+    - 'https://charts.rook.io/release'
+  destinations:
+    - namespace: 'rook-ceph'
+      server: '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
