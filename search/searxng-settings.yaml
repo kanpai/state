@@ -96,7 +96,7 @@ ui:
 # Note: since commit af77ec3, morty accepts a base64 encoded key.
 #
 result_proxy:
-  url: http://127.0.0.1:3000/
+  url: "https://ip.mib.dev"
   #key: !!binary "your_morty_proxy_key"
   # [true|false] enable the "proxy" button next to each result
   proxify_results: true
