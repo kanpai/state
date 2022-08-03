@@ -1,3 +1,4 @@
 resources:
   - morty.yaml
   - morty-key.yaml
+  - searxng-redis.yaml
