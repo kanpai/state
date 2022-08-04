@@ -2,7 +2,3 @@ resources:
   - networking.yaml
   - service.yaml
   - deploy.yaml
-configMapGenerator:
-  - name: test-config
-    envs:
-      - config.env

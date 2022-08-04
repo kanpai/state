@@ -1,14 +1,30 @@
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
 metadata:
-  name: test-http
+  name: test-gateway
 spec:
-  entryPoints:
-    - web
-  routes:
-    - match: Host(`kotatsu.kanp.ai`)
-      kind: Rule
-      services:
-        - name: test
-          scheme: http
-          port: 80
+  selector:
+    istio: ingress
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "test.mib.dev"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: test
+spec:
+  hosts:
+    - "test.mib.dev"
+  gateways:
+    - test-gateway
+  http:
+    - route:
+        - destination:
+            host: test
+            port:
+              number: 80
