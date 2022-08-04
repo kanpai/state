@@ -31,4 +31,4 @@ spec:
             - name: MONGO_URL
               value: mongodb://{{ include "wekan.fullname" . }}-database:27017/wekan
             - name: ROOT_URL
-              value: {{ .Values.rootUrl | quote }}
+              value: {{ .Values.wekan.rootUrl | quote }}
