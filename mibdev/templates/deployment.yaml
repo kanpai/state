@@ -1,9 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mibdev
+  name: {{ include "mibdev.fullname" . }}
+  labels:
+    app: mibdev
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: mibdev
@@ -13,8 +15,9 @@ spec:
         app: mibdev
     spec:
       containers:
-        - name: webserver
-          image: ghcr.io/mibmo/mib.dev:latest
+        - name: mibdev
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 3000
               name: http

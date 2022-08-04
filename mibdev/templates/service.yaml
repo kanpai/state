@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mibdev
+  name: {{ include "mibdev.fullname" . }}
 spec:
   ports:
-    - port: 3000
-      name: http
+  - port: 3000
+    name: http
   selector:
     app: mibdev
