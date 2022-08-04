@@ -1,0 +1,16 @@
+replicaCount: 1
+
+image:
+  repository: docker.io/traefik/whoami
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+nameOverride: ""
+fullnameOverride: ""
+
+ingress:
+  hosts:
+    - test.kanp.ai
+  issuer:
+    kind: ClusterIssuer
+    name: scaleway-letsencrypt

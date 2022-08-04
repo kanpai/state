@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "test.fullname" . }}-cert
+  namespace: istio-ingress
+spec:
+  {{- toYaml .Values.ingress.issuer | nindent 2 }}
+  secretName: {{ include "test.fullname" . }}-tls
+  dnsNames:
+  {{- range .Values.ingress.hosts }}
+    - {{ . | quote }}
+  {{- end }}

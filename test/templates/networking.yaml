@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: test-gateway
+  name: {{ include "test.fullname" . }}-gateway
 spec:
   selector:
     istio: ingress
@@ -13,16 +13,20 @@ spec:
       tls:
         httpsRedirect: true
       hosts:
-        - "test.kanp.ai"
+        {{- range .Values.ingress.hosts }}
+          - {{ . | quote }}
+        {{- end }}
     - port:
         number: 443
         name: https
         protocol: HTTPS
       tls:
         mode: SIMPLE
-        credentialName: test-tls
+        credentialName: {{ include "test.fullname" . }}-tls
       hosts:
-        - "test.kanp.ai"
+        {{- range .Values.ingress.hosts }}
+          - {{ . | quote }}
+        {{- end }}
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -30,12 +34,12 @@ metadata:
   name: test
 spec:
   hosts:
-    - "test.kanp.ai"
+    - "*"
   gateways:
-    - test-gateway
+    - {{ include "test.fullname" . }}-gateway
   http:
     - route:
         - destination:
-            host: test
+            host: {{ include "test.fullname" . }}
             port:
               number: 80
