@@ -1,0 +1,41 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: {{ include "matrixto.fullname" . }}-gateway
+spec:
+  selector:
+    istio: ingress
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      tls:
+        httpsRedirect: true
+      hosts:
+      {{ include "matrixto.hosts" . | nindent 8 }}
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: {{ include "matrixto.fullname" . }}-tls
+      hosts:
+      {{ include "matrixto.hosts" . | nindent 8 }}
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: matrixto
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - {{ include "matrixto.fullname" . }}-gateway
+  http:
+    - route:
+        - destination:
+            host: {{ include "matrixto.fullname" . }}
+            port:
+              number: 3000

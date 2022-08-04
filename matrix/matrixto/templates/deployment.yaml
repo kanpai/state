@@ -1,9 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: matrixto
+  name: {{ include "matrixto.fullname" . }}
+  labels:
+    app: matrixto
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: matrixto
@@ -14,13 +16,14 @@ spec:
     spec:
       containers:
         - name: matrixto
-          image: ghcr.io/mibmo/matrix.to:latest
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 3000
               name: http
           startupProbe:
             httpGet:
-              path: /
+              path: /healthz
               port: http
             failureThreshold: 30
             periodSeconds: 10

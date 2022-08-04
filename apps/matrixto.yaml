@@ -9,7 +9,7 @@ spec:
   project: matrix
   source:
     repoURL: git@github.com:kanpai/infra.git
-    targetRevision: HEAD
+    targetRevision: dev
     path: matrix/matrixto
     kustomize:
   destination:
@@ -20,7 +20,7 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
+      - CreateNamespace=false
       - PrunePropagationPolicy=foreground
       - PruneLast=true
     retry:
