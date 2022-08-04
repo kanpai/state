@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: system
+  namespace: argocd
+spec:
+  sourceRepos:
+    - 'https://charts.rook.io/release'
+    - 'https://istio-release.storage.googleapis.com/charts'
+    - 'https://bitnami-labs.github.io/sealed-secrets'
+    - 'https://charts.jetstack.io'
+    - 'https://github.com/scaleway/cert-manager-webhook-scaleway.git'
+  destinations:
+    - namespace: 'rook-ceph'
+      server: '*'
+    - namespace: 'istio-system'
+      server: '*'
+    - namespace: 'istio-ingress'
+      server: '*'
+    - namespace: 'kube-system'
+      server: '*'
+    - namespace: 'cert-manager'
+      server: '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'

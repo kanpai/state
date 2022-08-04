@@ -6,7 +6,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: istio
+  project: system
   source:
     repoURL: https://istio-release.storage.googleapis.com/charts
     chart: istiod

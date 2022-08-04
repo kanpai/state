@@ -6,9 +6,9 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: default
+  project: system
   source:
-    repoURL: 'https://github.com/scaleway/cert-manager-webhook-scaleway.git'
+    repoURL: https://github.com/scaleway/cert-manager-webhook-scaleway.git
     path: deploy/scaleway-webhook
     targetRevision: HEAD
   destination:

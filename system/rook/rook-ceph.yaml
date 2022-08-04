@@ -6,7 +6,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: rook
+  project: system
   source:
     repoURL: https://charts.rook.io/release
     chart: rook-ceph
