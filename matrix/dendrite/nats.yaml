@@ -6,7 +6,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: matrix
+  project: default
   source:
     repoURL: https://nats-io.github.io/k8s/helm/charts
     chart: nats
