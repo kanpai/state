@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "wekan.fullname" . }}-database
+  labels:
+    app: wekan-database
+spec:
+  replicas: 1 # ignore, as not sure if works {{ .Values.mongodb.replicaCount }}
+  serviceName: {{ include "wekan.fullname" . }}-database
+  selector:
+    matchLabels:
+      app: wekan-database
+  template:
+    metadata:
+      labels:
+        app: wekan-database
+    spec:
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "wekan.fullname" . }}-database-data
+      containers:
+        - name: mongodb
+          image: "{{ .Values.mongodb.image.repository }}:{{ .Values.mongodb.image.tag }}"
+          imagePullPolicy: {{ .Values.mongodb.image.pullPolicy }}
+          ports:
+            - containerPort: 27017
+              name: mongo
+          volumeMounts:
+            - name: data
+              mountPath: /data/db

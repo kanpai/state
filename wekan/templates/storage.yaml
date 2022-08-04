@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "wekan.fullname" . }}-database-data
+  labels:
+    app: wekan-database
+spec:
+  storageClassName: {{ .Values.mongodb.storageClass | quote }}
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.mongodb.storageRequest | default "2Gi" | quote }}

@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "wekan.fullname" . }}
+spec:
+  ports:
+    - port: 8080
+      name: http
+  selector:
+    app: wekan
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "wekan.fullname" . }}-database
+spec:
+  ports:
+    - port: 27017
+      name: mongo
+  selector:
+    app: wekan-database

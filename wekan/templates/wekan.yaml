@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "wekan.fullname" . }}
+  labels:
+    app: wekan
+spec:
+  replicas: {{ .Values.wekan.replicaCount }}
+  selector:
+    matchLabels:
+      app: wekan
+  template:
+    metadata:
+      labels:
+        app: wekan
+    spec:
+      containers:
+        - name: wekan
+          image: "{{ .Values.wekan.image.repository }}:{{ .Values.wekan.image.tag }}"
+          imagePullPolicy: {{ .Values.wekan.image.pullPolicy }}
+          ports:
+            - containerPort: 8080
+              name: http
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+            failureThreshold: 30
+            periodSeconds: 10
+          env:
+            - name: MONGO_URL
+              value: mongodb://{{ include "wekan.fullname" . }}-database:27017/wekan
+            - name: ROOT_URL
+              value: {{ .Values.rootUrl | quote }}
