@@ -13,9 +13,7 @@ spec:
       tls:
         httpsRedirect: true
       hosts:
-        {{- range .Values.ingress.hosts }}
-          - {{ . | quote }}
-        {{- end }}
+      {{ include "mibdev.hosts" . | nindent 8 }}
     - port:
         number: 443
         name: https
@@ -24,9 +22,7 @@ spec:
         mode: SIMPLE
         credentialName: {{ include "mibdev.fullname" . }}-tls
       hosts:
-        {{- range .Values.ingress.hosts }}
-          - {{ . | quote }}
-        {{- end }}
+      {{ include "mibdev.hosts" . | nindent 8 }}
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
