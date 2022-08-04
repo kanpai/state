@@ -10,19 +10,19 @@ spec:
         number: 80
         name: http
         protocol: HTTP
-      hosts:
-        - "test.kanp.ai"
       tls:
         httpsRedirect: true
+      hosts:
+        - "test.kanp.ai"
     - port:
         number: 443
         name: https
         protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: test-tls
       hosts:
         - "test.kanp.ai"
-      tls:
-        httpsRedirect: true
-        credentialName: test-tls
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
