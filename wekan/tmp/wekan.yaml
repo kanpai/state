@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wekan
+spec:
+  ports:
+    - port: 8080
+      name: http
+  selector:
+    app: wekan
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wekan
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wekan
+  template:
+    metadata:
+      labels:
+        app: wekan
+    spec:
+      containers:
+        - name: wekan
+          image: quay.io/wekan/wekan:latest
+          ports:
+            - containerPort: 8080
+              name: http
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            periodSeconds: 10
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+            failureThreshold: 30
+            periodSeconds: 10
+          envFrom:
+            - configMapRef:
+                name: wekan-config
+          env:
+            - name: MONGO_URL
+              value: "mongodb://wekan-database:27017/wekan"
+            - name: ROOT_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: wekan-config
+                  key: ROOT_URL

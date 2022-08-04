@@ -9,7 +9,7 @@ wekan:
 
 mongodb:
   replicaCount: 1
-  storageClass: scw-bssd
+  storageClass: default
   storageRequest: ""
 
   image:
