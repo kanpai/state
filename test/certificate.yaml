@@ -8,4 +8,4 @@ spec:
     name: scaleway-letsencrypt
   secretName: test-tls
   dnsNames:
-    - test.mib.dev
+    - test.kanp.ai
