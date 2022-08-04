@@ -1,4 +1,5 @@
 resources:
   - networking.yaml
+  - certificate.yaml
   - service.yaml
   - deploy.yaml
