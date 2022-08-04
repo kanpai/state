@@ -4,7 +4,8 @@ metadata:
   name: {{ include "test.fullname" . }}-cert
   namespace: istio-ingress
 spec:
-  {{- toYaml .Values.ingress.issuer | nindent 2 }}
+  issuerRef:
+  {{- toYaml .Values.ingress.issuer | nindent 4 }}
   secretName: {{ include "test.fullname" . }}-tls
   dnsNames:
   {{- range .Values.ingress.hosts }}
