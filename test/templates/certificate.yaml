@@ -8,6 +8,4 @@ spec:
   {{- toYaml .Values.ingress.issuer | nindent 4 }}
   secretName: {{ include "test.fullname" . }}-tls
   dnsNames:
-  {{- range .Values.ingress.hosts }}
-    - {{ . | quote }}
-  {{- end }}
+  {{ include "test.hosts" . | nindent 4 }}

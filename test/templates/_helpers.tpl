@@ -49,3 +49,13 @@ Selector labels
 app.kubernetes.io/name: {{ include "test.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{/*
+Hosts list
+*/}}
+{{- define "test.hosts" -}}
+{{- range .Values.ingress.hosts }}
+- {{ . | quote }}
+- "www.{{ . }}"
+{{- end }}
+{{- end }}
