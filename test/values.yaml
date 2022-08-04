@@ -9,8 +9,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 ingress:
-  hosts:
-    - test.kanp.ai
+  hosts: []
   issuer:
     kind: ClusterIssuer
     name: scaleway-letsencrypt
