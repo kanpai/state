@@ -23,7 +23,7 @@ spec:
               name: http
           startupProbe:
             httpGet:
-              path: /healthz
+              path: /
               port: http
             failureThreshold: 30
             periodSeconds: 10
