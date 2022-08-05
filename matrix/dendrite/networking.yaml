@@ -72,7 +72,7 @@ spec:
     - name: "sync-api-route"
       match:
         - uri:
-            regex: "^/_matrix/client/.*?/(sync|user/(.*/filter(/.*)?)|keys/changes|rooms/.*/messages)$"
+            regex: "^/_matrix/client/?.*/(sync|user/(.*/filter(/.*)?)|keys/changes|rooms/.*/messages)$"
       route:
         - destination:
             host: sync-api
@@ -90,7 +90,7 @@ spec:
     - name: "federation-api-route"
       match:
         - uri:
-            regex: "^/_matrix/(federation|key)"
+            regex: "^/_matrix/(federation|key)/?.*"
       route:
         - destination:
             host: federation-api
