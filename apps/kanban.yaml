@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: wekan
+  name: kanban
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -9,18 +9,28 @@ spec:
   project: default
   source:
     repoURL: git@github.com:kanpai/infra.git
-    targetRevision: HEAD
+    targetRevision: dev
     path: wekan
-    kustomize:
+    helm:
+      values: |
+        mongodb:
+          storageClass: "scw-bssd"
+          storageRequest: "1Gi"
+        wekan:
+          rootUrl: "https://kanban.kanp.ai"
+        ingress:
+          hosts:
+            - "kanban.kanp.ai"
+            - "wekan.kanp.ai"
   destination:
-    server: https://kubernetes.default.svc
+    name: in-cluster
     namespace: wekan
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
+      - CreateNamespace=false
       - PrunePropagationPolicy=foreground
       - PruneLast=true
     retry:
