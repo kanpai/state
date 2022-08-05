@@ -1,0 +1,111 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rook-ceph-cluster
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=false
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+  destination:
+    name: in-cluster
+    namespace: rook-ceph
+  source:
+    repoURL: https://charts.rook.io/release
+    chart: rook-ceph-cluster
+    targetRevision: v1.9.8
+    helm:
+      values: |
+        toolbox:
+          enabled: true
+        monitoring:
+          enabled: true
+        cephClusterSpec:
+          resources:
+            cleanup:
+              limits:
+                cpu: 500m
+                memory: 1Gi
+              requests:
+                cpu: 500m
+                memory: 100Mi
+            crashcollector:
+              limits:
+                cpu: 500m
+                memory: 60Mi
+              requests:
+                cpu: 100m
+                memory: 60Mi
+            logcollector:
+              limits:
+                cpu: 500m
+                memory: 1Gi
+              requests:
+                cpu: 100m
+                memory: 100Mi
+            mgr:
+              limits:
+                cpu: 1000m
+                memory: 1Gi
+              requests:
+                cpu: 500m
+                memory: 512Mi
+            mgr-sidecar:
+              limits:
+                cpu: 500m
+                memory: 100Mi
+              requests:
+                cpu: 100m
+                memory: 40Mi
+            mon:
+              limits:
+                cpu: 1000m
+                memory: 2Gi
+              requests:
+                cpu: 500m
+                memory: 1Gi
+            osd:
+              limits:
+                cpu: 1000m
+                memory: 2Gi
+              requests:
+                cpu: 500m
+                memory: 1Gi
+            prepareosd:
+              limits:
+                cpu: 500m
+                memory: 400Mi
+              requests:
+                cpu: 500m
+                memory: 50Mi
+          storage:
+            storageClassDeviceSets:
+              - name: set1
+                count: 3
+                portable: false
+                encrypted: false
+                volumeClaimTemplates:
+                  - metadata:
+                      name: data
+                    spec:
+                      resources:
+                        requests:
+                          storage: 10Gi
+                      storageClassName: scw-bssd
+                      volumeMode: Block
+                      accessModes:
+                        - ReadWriteOnce

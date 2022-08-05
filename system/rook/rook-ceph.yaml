@@ -7,13 +7,6 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: system
-  source:
-    repoURL: https://charts.rook.io/release
-    chart: rook-ceph
-    targetRevision: v1.9.8
-  destination:
-    name: in-cluster
-    namespace: rook-ceph
   syncPolicy:
     automated:
       prune: true
@@ -28,3 +21,10 @@ spec:
         duration: 5s
         factor: 2
         maxDuration: 3m
+  destination:
+    name: in-cluster
+    namespace: rook-ceph
+  source:
+    repoURL: https://charts.rook.io/release
+    chart: rook-ceph
+    targetRevision: v1.9.8
