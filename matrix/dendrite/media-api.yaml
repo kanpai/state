@@ -43,7 +43,7 @@ spec:
             optional: false
       containers:
         - name: media-api
-          image: docker.io/matrixdotorg/dendrite-polylith:latest
+          image: docker.io/matrixdotorg/dendrite-polylith:v0.9.1
           args: ["mediaapi"]
           volumeMounts:
             - name: media

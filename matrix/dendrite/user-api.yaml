@@ -38,7 +38,7 @@ spec:
             optional: false
       containers:
         - name: user-api
-          image: docker.io/matrixdotorg/dendrite-polylith:latest
+          image: docker.io/matrixdotorg/dendrite-polylith:v0.9.1
           args: ["userapi"]
           volumeMounts:
             - name: config

@@ -40,7 +40,7 @@ spec:
             optional: false
       containers:
         - name: sync-api
-          image: docker.io/matrixdotorg/dendrite-polylith:latest
+          image: docker.io/matrixdotorg/dendrite-polylith:v0.9.1
           args: ["syncapi"]
           volumeMounts:
             - name: config

@@ -40,7 +40,7 @@ spec:
             optional: false
       containers:
         - name: federation-api
-          image: docker.io/matrixdotorg/dendrite-polylith:latest
+          image: docker.io/matrixdotorg/dendrite-polylith:v0.9.1
           args: ["federationapi"]
           volumeMounts:
             - name: config
