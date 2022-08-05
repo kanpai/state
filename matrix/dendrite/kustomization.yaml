@@ -3,7 +3,6 @@ resources:
   - matrix-private-key.yaml
   - networking.yaml
   - well-known.yaml
-  - nats.yaml
 
   # Polylith components
   - appservice-api.yaml
