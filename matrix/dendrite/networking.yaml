@@ -6,75 +6,101 @@ spec:
   issuerRef:
     kind: ClusterIssuer
     name: scaleway-letsencrypt
-  secretName: matrix-api-tls
-  commonName: kanp.ai
+  secretName: matrix-tls
   dnsNames:
     - kanp.ai
     - matrix.kanp.ai
 ---
-# apiVersion: traefik.containo.us/v1alpha1
-# kind: IngressRoute
-# metadata:
-#   name: matrix-redirect-insecure
-# spec:
-#   entryPoints:
-#     - web
-#   routes:
-#     - match: Host(`shuu.ru`) || Host(`matrix.shuu.ru`)
-#       kind: Rule
-#       middlewares:
-#         - name: redirect-https
-#           namespace: traefik
-
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: matrix-gateway
+spec:
+  selector:
+    istio: ingress
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      tls:
+        httpsRedirect: true
+      hosts:
+        - kanp.ai
+        - matrix.kanp.ai
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: matrix-tls
+      hosts:
+        - kanp.ai
+        - matrix.kanp.ai
 ---
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
 metadata:
   name: well-known
 spec:
-  entryPoints:
-    - websecure
-  tls:
-    secretName: matrix-api-tls
-  routes:
-    - match: Host(`kanp.ai`) && PathPrefix(`/.well-known/matrix/`)
-      kind: Rule
-      services:
-        - name: well-known
-          scheme: http
-          port: http
+  hosts:
+    - "kanp.ai"
+  gateways:
+    - matrix-gateway
+  http:
+    - match:
+        - uri:
+            prefix: "/.well-known/matrix"
+      route:
+        - destination:
+            host: well-known
+            port:
+              number: 3000
 ---
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
 metadata:
   name: matrix-api
 spec:
-  entryPoints:
-    - websecure
-  tls:
-    secretName: matrix-api-tls
-  routes:
-    - match: Host(`matrix.kanp.ai`) && Path(`/_matrix/client/{url:.*?/(sync|user/(.*/filter(/.*)?)|keys/changes|rooms/.*/messages)$}`)
-      kind: Rule
-      services:
-        - name: sync-api
-          scheme: http
-          port: sync-api
-    - match: Host(`matrix.kanp.ai`) && PathPrefix(`/_matrix/client`)
-      kind: Rule
-      services:
-        - name: client-api
-          scheme: http
-          port: client-api
-    - match: Host(`matrix.kanp.ai`) && PathPrefix(`/_matrix/{url:(federation|key)}`)
-      kind: Rule
-      services:
-        - name: federation-api
-          scheme: http
-          port: federation-api
-    - match: Host(`matrix.kanp.ai`) && PathPrefix(`/_matrix/media`)
-      kind: Rule
-      services:
-        - name: media-api
-          scheme: http
-          port: media-api
+  hosts:
+    - "matrix.kanp.ai"
+  gateways:
+    - matrix-gateway
+  http:
+    - name: "sync-api-route"
+      match:
+        - uri:
+            regex: "^/_matrix/client/.*?/(sync|user/(.*/filter(/.*)?)|keys/changes|rooms/.*/messages)$"
+      route:
+        - destination:
+            host: sync-api
+            port:
+              number: 8073
+    - name: "client-api-route"
+      match:
+        - uri:
+            prefix: "/_matrix/client"
+      route:
+        - destination:
+            host: client-api
+            port:
+              number: 8071
+    - name: "federation-api-route"
+      match:
+        - uri:
+            regex: "^/_matrix/(federation|key)"
+      route:
+        - destination:
+            host: federation-api
+            port:
+              number: 8072
+    - name: "media-api-route"
+      match:
+        - uri:
+            prefix: "/_matrix/media"
+      route:
+        - destination:
+            host: media-api
+            port:
+              number: 8074
