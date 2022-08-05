@@ -4,6 +4,7 @@ resources:
   - old-matrix-keys.yaml
   - networking.yaml
   - well-known.yaml
+  - nats.yaml
 
   # Polylith components
   - appservice-api.yaml
