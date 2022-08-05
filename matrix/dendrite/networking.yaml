@@ -6,7 +6,7 @@ spec:
   issuerRef:
     kind: ClusterIssuer
     name: scaleway-letsencrypt
-  secretName: matrix-tls
+  secretName: matrix-api-tls
   dnsNames:
     - kanp.ai
     - matrix.kanp.ai
@@ -34,7 +34,7 @@ spec:
         protocol: HTTPS
       tls:
         mode: SIMPLE
-        credentialName: matrix-tls
+        credentialName: matrix-api-tls
       hosts:
         - kanp.ai
         - matrix.kanp.ai

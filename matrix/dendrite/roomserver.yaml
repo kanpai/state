@@ -36,11 +36,6 @@ spec:
           secret:
             secretName: matrix-key
             optional: false
-        - name: matrix-key-old
-          projected:
-            sources:
-              - secret:
-                  name: old-matrix-keys
       containers:
         - name: roomserver
           image: docker.io/matrixdotorg/dendrite-polylith:latest
@@ -61,9 +56,6 @@ spec:
             - name: matrix-key
               subPath: private.key
               mountPath: /etc/dendrite/matrix_key.pem
-              readOnly: true
-            - name: matrix-key-old
-              mountPath: /etc/dendrite/old-keys/
               readOnly: true
           # tcp liveness probe on api port
           resources:

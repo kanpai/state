@@ -1,7 +1,6 @@
 resources:
   - server-certificate.yaml
   - matrix-private-key.yaml
-  - old-matrix-keys.yaml
   - networking.yaml
   - well-known.yaml
   - nats.yaml
