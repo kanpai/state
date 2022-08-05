@@ -9,9 +9,18 @@ spec:
   project: matrix
   source:
     repoURL: git@github.com:kanpai/infra.git
-    targetRevision: HEAD
+    targetRevision: dev
     path: matrix/matrixto
-    kustomize:
+    helm:
+      parameters:
+        - name: ingress.hosts[0]
+          value: "mx.kanp.ai"
+        - name: ingress.hosts[1]
+          value: "to.kanp.ai"
+        - name: ingress.hosts[2]
+          value: "mx.mib.dev"
+        - name: ingress.hosts[3]
+          value: "to.mib.dev"
   destination:
     name: in-cluster
     namespace: matrixto
@@ -20,7 +29,7 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
+      - CreateNamespace=false
       - PrunePropagationPolicy=foreground
       - PruneLast=true
     retry:

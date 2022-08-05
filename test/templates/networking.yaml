@@ -1,0 +1,41 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: {{ include "test.fullname" . }}-gateway
+spec:
+  selector:
+    istio: ingress
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      tls:
+        httpsRedirect: true
+      hosts:
+      {{ include "test.hosts" . | nindent 8 }}
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: {{ include "test.fullname" . }}-tls
+      hosts:
+      {{ include "test.hosts" . | nindent 8 }}
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: test
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - {{ include "test.fullname" . }}-gateway
+  http:
+    - route:
+        - destination:
+            host: {{ include "test.fullname" . }}
+            port:
+              number: 80

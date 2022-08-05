@@ -1,0 +1,27 @@
+wekan:
+  rootUrl: ""
+  replicaCount: 1
+
+  image:
+    repository: quay.io/wekan/wekan
+    pullPolicy: IfNotPresent
+    tag: "v6.31"
+
+mongodb:
+  replicaCount: 1
+  storageClass: default
+  storageRequest: ""
+
+  image:
+    repository: docker.io/library/mongo
+    pullPolicy: IfNotPresent
+    tag: "4.4"
+
+nameOverride: ""
+fullnameOverride: ""
+
+ingress:
+  hosts: []
+  issuer:
+    kind: ClusterIssuer
+    name: scaleway-letsencrypt

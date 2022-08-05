@@ -1,0 +1,11 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "matrixto.fullname" . }}-cert
+  namespace: istio-ingress
+spec:
+  issuerRef:
+  {{- toYaml .Values.ingress.issuer | nindent 4 }}
+  secretName: {{ include "matrixto.fullname" . }}-tls
+  dnsNames:
+  {{ include "matrixto.hosts" . | nindent 4 }}

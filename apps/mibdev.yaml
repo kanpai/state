@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: mib.dev
+  name: mibdev
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -9,9 +9,12 @@ spec:
   project: default
   source:
     repoURL: git@github.com:kanpai/infra.git
-    targetRevision: HEAD
+    targetRevision: dev
     path: mibdev
-    kustomize:
+    helm:
+      parameters:
+        - name: ingress.hosts[0]
+          value: "mib.dev"
   destination:
     name: in-cluster
     namespace: mibdev
@@ -20,7 +23,7 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
+      - CreateNamespace=false
       - PrunePropagationPolicy=foreground
       - PruneLast=true
     retry:
