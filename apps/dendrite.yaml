@@ -6,7 +6,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: default
+  project: matrix
   source:
     repoURL: git@github.com:kanpai/infra.git
     targetRevision: HEAD

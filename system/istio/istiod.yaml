@@ -11,6 +11,8 @@ spec:
     repoURL: https://istio-release.storage.googleapis.com/charts
     chart: istiod
     targetRevision: 1.14.2
+    helm:
+      values: |
   destination:
     name: in-cluster
     namespace: istio-system
